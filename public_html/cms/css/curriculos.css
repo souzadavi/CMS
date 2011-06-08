@@ -1,0 +1,17 @@
+#topo_busca{
+	height: 210px;
+	margin-top:10px;
+	background: #eeeeee;
+	clear:both;
+
+}
+
+#form_busca{
+	margin-left: 20px;
+}
+
+#exibir_todos,#exporta_trabalhe{
+	float:left;
+	margin-top: 0;
+	margin-left: 15px;
+}

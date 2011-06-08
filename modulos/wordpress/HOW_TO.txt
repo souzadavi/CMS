@@ -1,0 +1,24 @@
+INFORMAÇÕES DE INSTALAÇão DO MODULO WORDPRESS
+
+
+SUBIR A PASTA application
+
+#################################################
+
+EDITAR  E INSERIR O ARQUIVO application/config/database.php
+
+$db['wordpress']['hostname'] = 'localhost';
+$db['wordpress']['username'] = 'USUARIODABASE';
+$db['wordpress']['password'] = 'SENHADABASE';
+$db['wordpress']['database'] = 'NOMEDABASE';
+$db['wordpress']['dbdriver'] = 'mysql';
+$db['wordpress']['dbprefix'] = '';
+$db['wordpress']['pconnect'] = TRUE;
+$db['wordpress']['db_debug'] = TRUE;
+$db['wordpress']['cache_on'] = FALSE;
+$db['wordpress']['cachedir'] = '';
+$db['wordpress']['char_set'] = 'utf8';
+$db['wordpress']['dbcollat'] = 'utf8_general_ci';
+$db['wordpress']['swap_pre'] = '';
+$db['wordpress']['autoinit'] = TRUE;
+$db['wordpress']['stricton'] = FALSE;

@@ -1,0 +1,35 @@
+INFORMAÇÕES DE INSTALAÇão DO MODULO CONTEUDO
+- esse módulo já vem ativado dentro do CMS
+
+@author davi souza
+@since v1.0
+@date 20/05/2011
+
+###########################
+SUBIR ARQUIVOS:
+
+/public_html/application/controllers/cms/conteudo.php
+/public_html/application/models/cms/conteudo_model.php
+/public_html/application/config/conteudo.php
+/public_html/application/views/cms/conteudo.php
+/public_html/application/views/cms/conteudo_detalhes.php
+/public_html/application/views/cms/conteudo_noticia.php
+/public_html/application/views/cms/conteudo_pagina.php
+
+
+###########################
+SUBIR PASTA e DAR PERMISSÂO 777
+/public_html/upload/conteudo
+
+
+###########################
+INSERIR conteudo.sql
+
+
+###########################
+EDITAR ARQUIVO /public_html/application/config/conteudo.php
+
+
+###########################
+
+

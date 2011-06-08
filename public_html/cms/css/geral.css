@@ -1,0 +1,173 @@
+@import url(reset-min.css);
+
+/*
+ * Geral
+ */
+* {
+	outline: none;
+}
+
+html {
+	color: #666666;
+	background: #ffffff url("../img/bg.jpg") repeat-x;
+}
+
+.round {
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+}
+
+#menu a:link {
+	color: white;
+	text-decoration: none
+}
+#menu a:visited {
+	text-decoration: none;
+	color: white;
+}
+
+a:link{
+	text-decoration: none;
+	color: #666666;
+}
+/*
+a:hover{
+	text-decoration: none;
+	color: #666666;
+}
+*/
+a:hover {
+	text-decoration: none; 
+	color: #444;
+}
+a:visited {
+	text-decoration: none; 
+	color: #666666;
+}
+
+li a:visited{
+	color: #666;
+	text-decoration: none;
+}
+
+li a:link{
+	color: #666;
+	text-decoration: none;
+}
+
+/*a:active {text-decoration: none}*/
+
+
+/*
+ * Padroes botoes
+ */
+.botao {
+	height: 24px;
+	color: #004892;
+	line-height: 24px;
+	text-align: center;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	font-family: "Trebuchet MS";
+	font-size: 11px;
+	font-weight: bold;
+	behavior: url(border-radius.htc);
+	cursor: pointer;
+	padding:0 10px;
+	display:inline-block;
+	border:none;
+}
+
+.botao_normal {
+	background: url(../img/bg_botao_normal.jpg) repeat-x;
+	background-color:#FFE800;
+}
+
+.botao_normal:hover {
+	background: url(../img/bg_botao_over.jpg) repeat-x;
+	background-color:#FFE800;
+}
+
+.botao_redondo {
+	width: 20px;
+	height: 20px;
+	border: 1px solid #dedede;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	line-height: 20px;
+	text-align: center;
+	/*float: left;*/
+	margin: 7px 3px;
+	padding:0 5px;
+}
+
+.botao_redondo_normal {
+	background: #c5c5c5;
+	color: white;
+	cursor:pointer;
+}
+
+.botao_redondo_selecionado {
+	background: white;
+	color: #960;
+}
+
+/*
+ * Formularios
+ */
+.input {
+	font-family: "Trebuchet MS";
+	border: 0 none;
+	font-size: 11px;
+	color: #666666;
+	height: 23px;
+	line-height:23px;
+	float: left;
+	margin-left:7px;
+}
+
+.estilo_input {
+	height: 23px;
+	border: #dedede 1px solid;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;	padding-right: 14px;
+	behavior: url(border-radius.htc);
+	float: left;
+	background-color:#FFF;
+}
+
+input:focus {
+	outline: none;
+}
+
+.tit_form {
+	font-family: "Tahoma";
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.margem_topo {
+	margin-top: 15px;
+}
+
+#login td{
+	line-height: 23px;
+}
+
+#bt_cad{
+	margin-top:15px;
+}
+#bt_voltar a{
+	color:#fff;
+}
+#msg_valida{
+	border:1px solid #f8893f;
+	color:#592003;
+	font-size:12px;
+	padding:10px 10px 10px 23px;
+	background:url(/img/icon_alert.gif) #feeed6 no-repeat 5px;
+}

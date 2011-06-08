@@ -1,0 +1,639 @@
+@import url(geral.css);
+
+html{
+	font-family: "Trebuchet MS";
+	font-size: 11px;
+	color: #666;
+}
+
+.margem_esq_tabela{
+	margin-left: 11px;
+	float:left;
+}
+
+.margem_top_check{
+	margin-top: 5px;
+}
+
+.borda_dash{
+	border-bottom: 1px dashed #dedede;
+}
+
+/*
+ * Topo
+ 
+#topo_admin{
+	width: 990px;	
+	margin: 10px auto;
+	text-align: right;
+	font-style: "Trebuchet MS";
+	font-size: 11px;
+	padding:0 5px;
+}
+*/
+
+#fecha_sessao{
+	color: #;
+	font-size:10px;
+	cursor:pointer;
+}
+#fecha_sessao a:visited{
+	color: #;
+}
+
+#base_admin{
+	width: 1000px;
+	margin: 0 auto;
+}
+
+#topo{
+	width: 1000px;
+	height: 129px;
+	/*float: left;*/
+	border-right: white 2px solid; 
+}
+
+#dir_topo{
+	width: 626px;
+	height: 129px;
+	float: right;
+	background: url(../img/bg_topo_base.jpg) left repeat-x;
+	text-align: right;
+	line-height: 190px;
+}
+
+.txt_administrativo{
+	font-size: 22px;
+	color: #623314;
+	font-family:District;
+	font-weight:100;
+}
+
+
+#cont_logo{
+	background: url(../img/topo_esquerda_base.png) left no-repeat;
+	width: 374px;
+	height: 129px;
+	float: left;
+}
+
+#logo{
+	width: auto !important;
+	margin: 25px auto auto 38px;
+}
+
+/*
+ * Menu
+ */
+
+#menu{
+	width: 998px;
+	background: url(../img/bg_menu.jpg) repeat-x;
+	height: 42px;
+	/*float: left;*/
+	border-left: 2px solid white;
+	border-right: 2px solid white;
+}
+
+#lista_menu{
+	font-family: "Trebuchet MS";
+	color: white;
+	font-weight: bold;
+	font-size: 12px;
+	margin: 0 auto auto 35px;
+}
+
+#lista_menu li{
+	float: left;
+	width: auto;
+	margin-right: 30px;
+	padding-top:12px;
+}
+#lista_menu li a:active{
+	color:#FF0;
+}
+#item{
+	margin:-2px -15px 0 -15px;
+	display:inline-block;
+}
+
+.item_esq{
+	width: 21px;
+	height: 33px;
+	background: url(../img/bg_menu_selecionado_esq.png) no-repeat;
+	float: left;
+}
+
+.item_centro{
+	height: 33px;
+	width: auto;
+	float: left;
+	background: url(../img/bg_menu_selecionado_centro.gif) repeat-x;
+	color: #848484;
+}
+
+.item_dir{
+	width: 21px;
+	height: 33px;
+	background: url(../img/bg_menu_selecionado_dir.png) no-repeat;
+	float: left;
+}
+
+.item_sel_titulo{
+	float: left;
+	margin-top: 7px;
+}
+
+.item_sel{
+	margin-right: 20px !important;
+}
+
+/*
+ * Corpo
+ */
+
+#corpo{
+	width: 998px;
+	/*float: left;*/
+	background: #eeeeee;
+	border-left: 2px solid white;
+	border-right: 2px solid white;
+	padding:10px 0;
+}
+
+#miolo_corpo{
+	background:white;
+	border:2px solid #DEDEDE;
+	/*color:#848484;*/
+	color:#666;
+	display: table;
+	margin:0 auto;
+	width:980px;
+	padding-bottom: 45px;
+}
+
+#menu_lista a{
+	display:block;
+	padding-left: 10px;
+}
+
+
+#tit_menu_lateral{
+	font-size: 22px;
+	color: #666;
+	margin: auto auto 10px 30px;
+	font-family:District;
+	font-weight:100;
+}
+
+.item_menu{
+	border-top: 1px solid #dedede;
+	/*height: 30px;*/
+	line-height: 30px;
+	background: #f6f6f6;
+}
+/*
+.item_menu_selecionado{
+	background: #f6f6f6 url(../img/seta_menu_selecionado.png) no-repeat 140px center;
+}
+.item_menu_nao_selecionado{
+	background: #f6f6f6 url(../img/seta_menu_nao_selecionado.png) no-repeat 140px center;
+}
+*/
+.accordion{
+	background: #f6f6f6 url(../img/seta_menu_nao_selecionado.png) no-repeat 140px 12px;
+	cursor: pointer;
+}
+
+.accordion_sel{
+	background: #f6f6f6 url(../img/seta_menu_selecionado.png) no-repeat 140px 12px;
+	cursor: pointer;
+}
+
+.lista_menu{
+	width: 160px;
+	font-family: "Trebuchet MS";
+	font-size: 12px;
+	margin-left: 20px;
+}
+
+.tit_item_menu{
+	margin-left: 10px;
+}
+
+.subitem{
+	background: url(../img/seta_menu_subitem.png) no-repeat 10px;
+	padding-left: 15px;
+	font-weight: bold;
+	color: #666;
+	line-height: 30px;
+	border-top:1px dashed #dedede;
+	background-color:#FFF;
+}
+
+#menu_lateral{
+	margin: 25px auto 10px;
+	float: left;
+}
+
+#conteudo_corpo{
+	margin: 20px auto auto 30px;
+	float: left;
+	width: 745px;
+}
+/*
+ * Corpo - lado direito
+ */
+
+#topo_conteudo{
+	border-bottom: 1px solid #dedede;
+	height: 40px;
+	padding:0 10px;
+}
+
+#titulo_admin{
+	font-size: 28px;
+	color: #623314;
+	width: auto;
+	font-family:District;
+	font-weight:100;
+}
+
+#cadastrar{
+	float: right;
+	margin-top: -20px;
+}
+
+#info{
+	margin: 10px 10px 0 10px;
+	height:20px;
+}
+
+#qtde_cadastro{
+	width: auto;
+	float: left;
+	font-size:12px;
+}
+
+#visualizacao_pagina{
+	width: auto;
+	float: right;
+	margin:15px 0 10px 0;
+	*margin:15px 0 0 0;
+}
+
+#buscar{
+	width: 285px;
+	height: 24px;
+	line-height: 24px;
+	border: 1px solid #dedede;
+	background: white;
+	margin-top:8px;
+	float: left;
+}
+
+#inp_busca{
+	margin-left: 7px;
+	border: 0px none;
+	width: 220px;
+	float:left;
+	height:24px;
+	line-height:24px;
+}
+
+#botao_busca{
+	width: 32px;
+	height: 24px;
+	float: right;
+	background: url(../img/botao_ok.png) no-repeat;
+	cursor: pointer;
+	margin-right:-10px;
+}
+
+#titulos_tabela{
+	height: 30px;
+	background: white;
+	border: 1px solid #dedede;
+	margin-top: -19px;
+	line-height: 30px;
+}
+
+#div_check{
+	*width:17px;
+	*margin-left:7px;
+}
+#sel_todos{
+	float: left;
+	height: 30px;
+}
+
+.tit_tabela_topo{
+	float: left;
+	padding-left: 10px;
+	color: #623314;
+}
+
+.tit_tabela{
+	float: left;
+	padding-left: 10px;
+}
+
+.campo_tabela{
+	height: 30px;
+	line-height: 30px;
+	overflow: hidden;
+	margin-left:1px;
+}
+
+#excluir_selecionados{
+	width: 150px;
+	height: 30px;
+	line-height: 30px;
+	border: 1px solid #dedede;
+	margin-top: 10px;
+	cursor: pointer;
+}
+#txt_excluir{
+	margin-left:10px;
+	float:left;
+}
+#bt_excluir{
+	float:right;
+	margin-top:4px;
+	margin-right:5px;
+}
+
+#paginacao{
+	margin-top: 30px;
+	border-top: 1px solid #dedede;
+	height: 35px;
+	line-height: 35px;
+}
+#paginacao a{
+	color:#960;
+}
+#bolinha_paginacao a{
+	color:#fff;
+}
+#txt_paginacao{
+	float: left;
+	width: auto;
+	margin:0 5px 0 10px;
+	font-size:11px;
+	color:#999;
+}
+
+#botoes_paginacao{
+	width: 55px;
+	height: 28px;
+	border: 1px solid #dedede;
+	float: right;
+	margin-top: 3px;
+	line-height: 28px;
+	margin-right:10px;
+}
+
+#pag_ant,#pag_prox{
+	margin-top: 3px;
+	width: 21px;
+	height: 22px;
+	cursor:pointer;
+}
+
+#pag_ant{
+	float: left;
+	margin-left: 5px;
+	background: url(../img/botao_paginacao_anterior.jpg) no-repeat;
+}
+
+#pag_prox{
+	float: right;
+	margin-right: 5px;
+	background: url(../img/botao_paginacao_proximo.jpg) no-repeat;
+}
+
+/*
+ * Rodapé
+ */
+#rodape{
+	font-size: 11px;
+	color: #666;
+	font-family: "Trebuchet MS";
+	text-align: left;
+	height: 40px;
+	line-height:25px;
+	background: #eeeeee;
+	width:1002px;
+	margin-bottom:50px;
+	background:url(../img/rodape.gif) no-repeat center bottom;
+}
+
+/*
+#rodape_esq,#rodape_dir{
+	width: 10px;
+	height: 49px;
+}
+
+#rodape_esq{
+	background: url(../img/rodape_esq.png) no-repeat;
+	float: left;
+	border-left: 2px solid white;
+}
+
+#rodape_dir{
+	background: url(../img/rodape_dir.png) no-repeat;
+	float: right;
+	border-right: 2px solid white;
+}
+
+#rodape_centro{
+	width: 978px;
+	float: left;
+	background: #eeeeee;
+}*/
+
+/*
+ * Forms
+ */
+
+#botao_cadastra{
+	width: 80px;
+}
+
+#form_blog tr{
+	height: 30px;
+}
+
+.img_erro{
+	float: left;
+	margin-left: 5px;
+}
+
+#exibir_todos{
+	float: left;
+	margin-left:20px;
+	margin-top: 13px;
+	cursor: pointer;
+}
+
+#buscar_data{	
+	background: white;
+	border:1px solid #DEDEDE;
+	float:right;
+	height:24px;
+	line-height:24px;
+	margin-right:10px;
+	margin-top:8px;
+	width:77px;
+	cursor: pointer;
+}
+
+#calendario{
+	position: absolute;
+	z-index:1000;
+	top:345px;
+	left:50%;
+	width:210px;
+	margin-left:157px;
+}
+
+#result_busca{
+	margin: 10px 0 0 20px;
+	/*margin-bottom: 10px;
+	float: left;*/
+	width: 700px;
+	/*text-align: center;*/
+}
+.legend_trabalhe{
+	font-size:18px;
+	color:#666; 
+	border-bottom:1px solid #ddd; 
+	display:table-row; 
+	*display:block; 
+	padding-bottom:3px;
+	*margin-left:-8px;
+	*margin-bottom:10px;
+}
+
+/*
+ * Formulario
+ */
+
+.formulario td{
+	height: 27px;
+}
+
+.esquerda{
+	float: left;
+}
+
+#listagem tr{
+	height:30px;
+	border-bottom:1px dashed #DEDEDE;
+}
+#listagem td{
+	*border-bottom:1px dashed #DEDEDE;
+	
+}
+
+/*
+ * Alertas
+ */
+.observacao{
+	background:url(../img/icon-alert.gif) 10px 12px no-repeat #fcfaf1;
+	border:1px solid #fcefa1;
+	display:block;
+	padding:10px 30px;
+	width:500px;
+	margin-top:10px;	
+}
+#mensagem{
+	width:100%;
+	height:80px;
+	text-align:center;
+	background-color:#060;
+	position:fixed;
+	top:0;
+	display:none;
+	padding-top:10px;
+	z-index:1;
+	line-height:20px;
+	font-size:12px;
+	font-weight:bold;
+	letter-spacing:2px;
+	color:#fff;
+}
+
+/* TABELA */
+#listagem td {
+	padding-left:10px;
+}
+.campo0 {
+	width: 40px;
+ *margin-right:3px;
+}
+.campo1 {
+	width: 130px;
+	overflow-x: hidden;
+ *margin-right:3px;
+}
+.campo2 {
+	width: 270px;
+ *margin-right:3px;
+}
+.campo3 {
+	width: 180px;
+ *margin-right:3px;
+}
+.campo4 {
+	width: 65px;
+ *margin-right:3px;
+}
+.tit_tabela_topo {
+ *padding-left:0;
+}
+#listagem tr {
+	height:40px;
+}
+
+
+/* CLASS TABELA */
+.listagem td {
+	padding:20px  0 20px 10px;
+}
+
+.listagem label{
+	color:#333;
+	font-size:1.3em;
+}
+.listagem textarea, input{
+	margin-bottom:10px;
+}
+
+.listagem tr {
+	height:40px;
+}
+.listagem tr{
+	height:30px;
+	border-bottom:1px dashed #DEDEDE;
+}
+.listagem td{
+	*border-bottom:1px dashed #DEDEDE;
+	
+}
+/* CLASS TABELA */
+
+/* CLASS Ferramentas*/
+.ferramenta li{
+	background-color:#FF3;
+	color:#333;
+	float:right;
+	padding:8px;
+	margin-top:7px;
+}
+.ferramenta li a{
+	display:block;
+}
+.ferramenta li a:hover{
+	color:#00C;
+}

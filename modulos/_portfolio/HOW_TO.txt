@@ -1,0 +1,23 @@
+INFORMAÇÕES DE INSTALAÇão DO MODULO PORTFOLIO
+
+@author davi souza
+@since v1.0
+@date 03/05/2011
+
+###########################
+SUBIR ARQUIVOS:
+
+/public_html/application/controllers/cms/portfolio.php
+/public_html/application/models/cms/portfolio_model.php
+/public_html/application/views/cms/portfolio.php
+/public_html/application/config/portfolio.php
+
+
+###########################
+SUBIR PASTA e DAR PERMISSÂO 777
+/public_html/upload/banner
+
+
+###########################
+INSERIR portfolio.sql
+

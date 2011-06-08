@@ -1,0 +1,1 @@
+<div id="mensagem"><img src="../img/icone_ok.png" alt="" width="49" height="49" /></div>

@@ -1,0 +1,40 @@
+.categoriaSelecionada{
+	font-weight:bold;
+	color:#03F;
+	background-color:#F2F2F2;
+}
+#listagem td {
+	padding-left:10px;
+}
+.campo1{
+	width: 40px;
+	text-align:center;
+}
+.campo2{
+	width: 390px;
+	*padding-left:5px !important;
+}
+.campo3{
+	width: 130px;
+	*padding-left:5px !important;
+}
+.campo4{
+	width: 80px;
+	*padding-left:5px !important;
+	
+}
+.campo5{
+	text-align:center;
+}
+.tit_tabela_topo{
+	*padding-left:0;
+}
+.tabela td {
+	padding:2px 0 0 10px;
+}
+.tabela th {
+	padding-left:10px;
+	font-size: 12px;
+	color:#623314;
+	
+}

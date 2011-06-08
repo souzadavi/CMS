@@ -1,0 +1,115 @@
+@import url(geral.css);
+
+html{
+	background: #ffffff url("../img/bg.jpg") repeat-x ;
+}
+/*
+#topo_login,#tit_login,#centro_login,#rodape_login{
+	float: left;
+}
+*/
+#base_login{
+	margin: 0 auto;
+}
+
+#base_login,#topo_login{
+	width: 375px;
+}
+
+#topo_login{
+	background: url(../img/topo_login.png) center no-repeat;
+	height: 129px;
+	margin-top:50px;
+}
+
+#tit_login,#centro_login{
+	width: 371px;
+	border-right: 2px solid white;
+	border-left: 2px solid white;
+}
+
+#tit_login{
+	background: url(../img/bg_titulo_login.jpg) repeat-x;
+	height: 42px;
+	text-align: center;	
+}
+
+#centro_login{
+	background: #eeeeee;
+	padding:10px 0;
+}
+
+#conteudo_logo{
+	width: 290px;
+	margin:0 auto;
+	padding-top:25px;
+}
+
+#titulo_login{
+	font-size: 22px;
+	color: white;
+	line-height: 42px;
+}
+
+#miolo_login{
+	width: 353px;
+	background: white;
+	margin: 0 auto;
+	border: 2px solid #dedede;
+	color:#848484;
+	font-family: "Tahoma";
+}
+
+#div_texto_login{
+	width: 280px;
+	margin: 25px auto;
+}
+
+#form_login{
+	width: 253px;
+	margin: 25px auto 35px;
+}
+
+/*
+ * Botao envia - formulário 
+ */
+
+
+#botao_envia{
+	width: 64px;
+	margin-left: 7px;
+	margin-top: 9px;
+	cursor: pointer;
+}
+
+/*
+ * Inputs Formulario
+ */
+
+#div_login,#div_senha{
+	width: 185px;
+	margin-left: 7px;
+}
+
+/*
+ * Formulário
+ */
+
+#texto_login{	
+	font-size: 12px;
+	font-weight: regular;
+}
+
+/*
+ * Rodapé
+ */
+
+#rodape_login{
+	font-size: 11px;
+	color: #666666;
+	font-family: "Trebuchet MS";
+	text-align: center;
+	line-height: 25px;
+	height: 40px;	
+	background: url(../img/bg_rodape.gif) bottom center no-repeat;
+}
