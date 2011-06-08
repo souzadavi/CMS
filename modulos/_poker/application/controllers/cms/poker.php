@@ -20,6 +20,7 @@ class Poker extends CI_Controller {
         $this->config->load('poker');
         $this->load->library('permissions');
         $this->permissions->check_permission($this->config->item('poker'));
+        $this->load->library('input');
 
     }
 
@@ -70,7 +71,6 @@ class Poker extends CI_Controller {
         $data['modo'] = "novo";
 
         $this->load->library('form_validation');
-        $this->load->library('input');
 
         $this->form_validation->set_rules('status', 'status', 'trim|required');
         $this->form_validation->set_rules('nome', 'nome', 'trim|required');
@@ -143,15 +143,55 @@ class Poker extends CI_Controller {
         $data['menuLinks'] = $this->permissions->monta_menu(); // montar menu superior
         $data['menus'] = $this->permissions->monta_menu($this->config->item('poker_torneio_detalhes')); // montar menu lateral
 
+        if ($this->session->flashdata('script_head')) {
+            $data['script_head'] = $this->mensagem->call($this->session->flashdata('script_head'));
+        }
+
         $data['modo'] = "editar";
 
-
         $data['torneio'] = $this->poker_model->getTorneio($id)->row();
-        //$data['bannerViews'] = $this->banner_model->getBannerViews($id);
+        $data['jogadores'] = $this->poker_model->getAllJogador();
+        $data['jogadoresInscritos'] = $this->poker_model->getJogadoresTorneio($id);
         //$data['bannerCliques'] = $this->banner_model->getBannerCliques($id);
 
         //$data['categorias'] = $this->banner_model->getAllCategorias();
         $this->load->view(base_cms() . 'poker_torneio_detalhes', $data);
+    }
+    
+    function inserirJogadorTorneio($id){
+        $data['user_id'] = $this->tank_auth->get_user_id();
+        $data['username'] = $this->tank_auth->get_username();
+        $this->permissions->check_permission($this->config->item('poker_torneio_inserir_jogador'));
+        
+        $jogador = array(
+            'torneio_id' => $id,
+            'jogador_id' => $this->input->post('jogador_id')
+            );
+
+        if($this->poker_model->verificarJogadorTorneio($jogador)){
+            $array = array(
+                'torneio_id' => $id,
+                'jogador_id' => $this->input->post('jogador_id'),
+                'pontos'    => 0
+            );
+            if ($this->poker_model->inserirJogadorTorneio($array)) {
+                //INICIO LOGS
+                $this->load->library('logs');
+                $arrayLog = array(
+                    'users_id' => $this->tank_auth->get_user_id(),
+                    'url' => "poker/inserir",
+                    'log' => print_r($array, true),
+                    'ip' => $this->input->ip_address()
+                );
+                $this->logs->gravar($arrayLog);
+                //FIM LOGS
+                $this->session->set_flashdata("script_head", "Jogador cadastrado com sucesso!");
+            redirect(base_cms() . "poker/detalhes/".$id);
+            }
+        }else{
+            $this->session->set_flashdata("script_head", "Jogador já cadastrado.");
+            redirect(base_cms() . "poker/detalhes/".$id);
+        }
     }
 
     function status($id, $status) {

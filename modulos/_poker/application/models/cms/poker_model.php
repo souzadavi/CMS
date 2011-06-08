@@ -5,6 +5,8 @@ if (!defined('BASEPATH'))
 
 class Poker_model extends CI_Model {
     const TABLE = 'poker_torneio';
+    const TABLE_JOGADOR = 'poker_jogador';
+    const TABLE_JOGADOR_TORNEIO = 'poker_relacao';
 
     function __construct() {
         parent::__construct();
@@ -39,4 +41,27 @@ class Poker_model extends CI_Model {
         return true;
     }
 
+    function getAllJogador(){
+        $this->defaultDB->order_by("nome ASC");
+        return $this->defaultDB->get(self::TABLE_JOGADOR);
+    }
+
+    function getJogadoresTorneio($id){
+        $this->defaultDB->where('id', $id);
+        $this->defaultDB->order_by("nome ASC");
+        return $this->defaultDB->get(self::TABLE_JOGADOR);
+    }
+    function inserirJogadorTorneio($array){
+        return $this->defaultDB->insert(self::TABLE_JOGADOR_TORNEIO, $array);
+    }
+    
+    function verificarJogadorTorneio($array){
+        $this->defaultDB->where($array);
+        if($this->defaultDB->get(self::TABLE_JOGADOR_TORNEIO)->num_rows()>0){
+            return false;
+        }else{
+            return true;
+        }
+        
+    }
 }

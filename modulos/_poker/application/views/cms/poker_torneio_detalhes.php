@@ -119,8 +119,16 @@
               <tr>
                 <td height="63" style="padding-left:20px"><label for="nome2">Incluir novo jogador no torneio.</label>
                   <br />
-                  <input name="nome2" type="text" class="estilo_input input" id="nome2" size="80" value="" />
-                  <input type="submit" class="botao_normal botao" name="botao3" id="botao3" value="Inserir novo jogador" /></td>
+                  <form action="poker/inserirJogadorTorneio/<?php echo $torneio->id; ?>" method="post" >
+                      <select name="jogador_id" id="jogador_id" >
+                        <?php foreach($jogadores->result() as $jogador){ ?>
+                            <option value="<?php echo $jogador->id; ?>"><?php echo $jogador->nome; ?></option>
+                        <?php } ?>
+                        </select>
+                      <input type="submit" class="botao_normal botao" name="botao3" id="botao3" value="Inserir novo jogador" />
+                  </form>
+				<?php foreach($jogadoresInscritos->result() as $jogadorInscrito){ ?><?php echo $jogadorInscrito->nome; ?> | <?php } ?>
+                  </td>
               </tr>
               <tr>
                 <td height="63" style="padding-left:20px"><label for="nome2">Etapa Atual</label><br />

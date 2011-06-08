@@ -61,3 +61,4 @@ ENGINE = InnoDB;
 insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (34,0,'0','Poker','poker',1);
 insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (35,34,'0','Novo Torneio','poker/novo',1);
 insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (36,34,'1','Editar Torneio','poker/editar',1);
+insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (37,34,'1','Inserir Jogador em Torneio','poker/inserirJogadorTorneio',1);
