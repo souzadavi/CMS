@@ -20,7 +20,7 @@ $config['max_width'] = "2000";
 $config['max_height'] = "2000";
 
 //UPLOAD PORTFOLIO
-$config['path_upload_banner'] = $_SERVER['DOCUMENT_ROOT']."/produtoraweb/novo/upload/banner/";
+$config['path_upload_banner'] = $_SERVER['DOCUMENT_ROOT']."/produtoraweb/upload/banner/";
 //
 
 // MENSAGEM ERROS

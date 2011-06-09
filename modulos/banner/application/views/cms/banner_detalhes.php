@@ -114,9 +114,9 @@
               <td width="46%" height="88" style="padding-left:20px"><strong>Informações:</strong>
                 <br />
                 ClickTag:
-                <a href="<?php echo base_url(); ?>banner/clicktag/<?php echo $banner->id; ?>"><?php echo base_url(); ?>banner/clicktag/<?php echo $banner->id; ?></a><br />
+                <a href="<?php echo base_url(); ?><?php echo base_cms(); ?>banner/clicktag/<?php echo $banner->id; ?>"><?php echo base_url(); ?><?php echo base_cms(); ?>banner/clicktag/<?php echo $banner->id; ?></a><br />
                 Caminho do Banner (src):
-                <a href="<?php echo base_url(); ?>banner/view/<?php echo $banner->id; ?>"><?php echo base_url(); ?>banner/view/<?php echo $banner->id; ?></a><br />
+                <a href="<?php echo base_url(); ?><?php echo base_cms(); ?>banner/view/<?php echo $banner->id; ?>"><?php echo base_url(); ?><?php echo base_cms(); ?>banner/view/<?php echo $banner->id; ?></a><br />
                 Visualizações: <?php echo $bannerViews; ?>
                 <br />
                 Cliques: <?php echo $bannerCliques; ?>
