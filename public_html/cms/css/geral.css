@@ -169,5 +169,28 @@ input:focus {
 	color:#592003;
 	font-size:12px;
 	padding:10px 10px 10px 23px;
-	background:url(/img/icon_alert.gif) #feeed6 no-repeat 5px;
+	background:url(../img/icon_alert.gif) #feeed6 no-repeat 5px;
+}
+.botaoFechar span{
+background: url(../img/excluir.gif) no-repeat;
+}
+.botaoFechar span a, #listaJogadoresInscritos a{
+background: url(../img/excluir.gif) no-repeat;
+width: 10px;
+height: 10px;
+display: block;
+float: left;
+text-indent: -9999px;
+overflow: hidden;
+margin:3px 5px 0 0;
+}
+.botaoFechar span a:hover, #listaJogadoresInscritos a:hover{
+background: url(../img/excluir.gif) no-repeat -10px 0;
+}
+#listaJogadoresInscritos{
+	margin-bottom:15px;
+}
+.listaColunas li{
+	float:left;
+	width:150px;
 }

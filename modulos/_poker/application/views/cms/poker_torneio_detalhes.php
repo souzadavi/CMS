@@ -37,6 +37,29 @@
                     external_image_list_url : "lists/image_list.js",
                     media_external_list_url : "lists/media_list.js"
             });
+			
+			$('#etapaAtual').change(function() {
+ 				$('#jogadoresPontuacao').toggle();
+			});
+			<?php if($modo =="editar"){ ?>
+			<?php $i = 0; foreach($jogadoresInscritos->result() as $jogadorInscrito){ ?>
+			/// Definir Estatus para hidden
+			$('#jogadorInput<?php echo $i; ?>').hide();
+			$('#etapaAtual option:first').attr("selected","selected");
+			$("#jogador<?php echo $i; ?>").attr('checked', false);
+			$('#jogadorText<?php echo $i; ?>').val('');
+
+			$('#jogador<?php echo $i; ?>').click(function(){
+				if ($('#jogador<?php echo $i; ?>:checked').val() == undefined) {
+  					$('#jogadorInput<?php echo $i; ?>').hide();
+					$('#jogadorText<?php echo $i; ?>').val('');
+				}else{
+					$('#jogadorInput<?php echo $i; ?>').show();
+					$("#jogadorText<?php echo $i; ?>").focus();
+				}
+				
+			});
+			<?php $i++; }} ?>
         });
     </script>
 	</head>
@@ -127,33 +150,50 @@
                         </select>
                       <input type="submit" class="botao_normal botao" name="botao3" id="botao3" value="Inserir novo jogador" />
                   </form>
-				<?php foreach($jogadoresInscritos->result() as $jogadorInscrito){ ?><?php echo $jogadorInscrito->nome; ?> | <?php } ?>
-                  </td>
+                  Jogadores no Torneio<br />
+                  <ul class="listaColunas" id="listaJogadoresInscritos">
+				<?php foreach($jogadoresInscritos->result() as $jogadorInscrito){ ?><li><?php echo $jogadorInscrito->nome; ?> &nbsp;&nbsp;<span><a href="poker/deletarJogadorTorneio/<?php echo $jogadorInscrito->id; ?>/<?php echo $torneio->id; ?>" class="botaoFechar" title="Deletar Jogador do Torneio">X</a></span></li><?php } ?>
+                 </ul> <br />
+</td>
               </tr>
               <tr>
                 <td height="63" style="padding-left:20px"><label for="nome2">Etapa Atual</label><br />
-                  <input name="nome2" type="text" class="estilo_input input" id="nome2" size="80" value="<?php echo $torneio->realizada_etapas; ?>" /> 
+                  <select id="etapaAtual" name="etapaAtual" >
+                  	<?php //for($i=$torneio->realizada_etapas;$i<=$torneio->total_etapas;$i++){	 ?>
+                        	<option value="<?php echo $torneio->realizada_etapas; ?>"><?php echo $torneio->realizada_etapas; ?></option>
+                            <option value="<?php echo $torneio->realizada_etapas++; ?>"><?php echo $torneio->realizada_etapas++; ?></option>
+                    <?php //} ?>
+                  </select>
                   onchagen abrir opções de jogadores abaixo</td>
               </tr>
+              </table>
+
+              <form action="poker/etapasAtualizar/<?php echo $torneio->realizada_etapas++; ?>" method="post" enctype="multipart/form-data">
+              <table width="100%" style="margin-top:15px;display:none;" id="jogadoresPontuacao">
               <tr>
-                <td height="63" style="padding-left:20px"><p>Selecione apenas os jogadores que participaram dessa etapa e atualize a pontuação.<br />
-                <input type="checkbox" name="checkbox" id="checkbox" />
-                Davi Souza - 5000<br />
-                <input type="text" name="pontos" class="estilo_input input" id="ponto" /><br /><br />
-                <input type="checkbox" name="checkbox" id="checkbox" />
-                Poker Man - 500<br />
-                <input type="text" name="pontos" class="estilo_input input" id="ponto" />
-                </p>
-                  <p>
-                    <input type="submit" class="botao_normal botao" name="botao2" id="botao2" value="atualizar pontuação" />
-                </p></td>
+                <td height="43" style="padding-left:20px"><p class="observacao">Selecione apenas os jogadores que participaram dessa etapa e atualize a pontuação.</p></td>
+              </tr>
+              <?php $i=0; foreach($jogadoresInscritos->result() as $jogadorInscrito){ ?>
+              <tr>
+                <td height="35" style="padding-left:20px"><label><input type="checkbox" name="jogador[<?php echo $i; ?>][selecionado]" id="jogador<?php echo $i; ?>" />
+				<?php echo $jogadorInscrito->nome; ?> - <?php echo $jogadorInscrito->pontos_total; ?></label><br />
+					<div id="jogadorInput<?php echo $i; ?>" >
+	                    <input name="jogador[<?php echo $i; ?>][pontos]" type="text" class="estilo_input input" id="jogadorText<?php echo $i; ?>" maxlength="11" />&nbsp;&nbsp;Pontos
+                        <input name="jogador[<?php echo $i; ?>][jogador_id]" type="hidden" id="jogador[<?php echo $i; ?>][jogador_id]" value="<?php echo $jogadorInscrito->jogador_id; ?>" />
+                    </div>
+                    </td>
+                    
+              </tr>
+              <?php $i++; } ?>
+              <tr>
+                <td height="53" style="padding-left:20px"><input type="submit" class="botao_normal botao" name="botao2" id="botao2" value="atualizar pontuação" /></td>
               </tr>
             </table>
+            </form>
             <!-- TITULO PAGINA -->
             <div id="topo_conteudo" style="margin-top:35px;">
               <div id="titulo_admin" class="titulo_admin">Editar  Torneio - <?php echo $torneio->nome; ?></div>
             </div>
-            <p class="observacao">Todos os campos são obrigatórios.</p>
             <!-- FIM TITULO PAGINA -->
             <form action="poker/inserir" method="post" enctype="multipart/form-data">
 <table width="100%" style="margin-top:15px;" id="listagem">

@@ -172,7 +172,8 @@ class Poker extends CI_Controller {
             $array = array(
                 'torneio_id' => $id,
                 'jogador_id' => $this->input->post('jogador_id'),
-                'pontos'    => 0
+                'pontos'    => 0,
+                'etapa'    => 0
             );
             if ($this->poker_model->inserirJogadorTorneio($array)) {
                 //INICIO LOGS
@@ -192,6 +193,24 @@ class Poker extends CI_Controller {
             $this->session->set_flashdata("script_head", "Jogador já cadastrado.");
             redirect(base_cms() . "poker/detalhes/".$id);
         }
+    }
+
+    function deletarJogadorTorneio($jogador_id, $torneio_id){
+        $data['user_id'] = $this->tank_auth->get_user_id();
+        $data['username'] = $this->tank_auth->get_username();
+        $this->permissions->check_permission($this->config->item('poker_torneio_deletar_jogador'));
+        
+        $array = array(
+            'torneio_id' => $torneio_id,
+            'jogador_id' => $jogador_id
+        );
+
+        if($this->poker_model->deletarJogadorTorneio($array)){
+            $this->session->set_flashdata("script_head", "Jogador deletado do torneio com sucesso.");
+        }else{
+            $this->session->set_flashdata("script_head", "Erro ao deletar jogador do torneio.");
+        }
+        redirect(base_cms() . "poker/detalhes/".$torneio_id);
     }
 
     function status($id, $status) {
@@ -214,6 +233,10 @@ class Poker extends CI_Controller {
                 redirect(base_cms() . "poker");
             }
         }
+    }
+    
+    function etapasAtualizar($id){
+        echo "POSTs:".var_dump($_POST['jogador']);
     }
 
     /*

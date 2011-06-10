@@ -47,9 +47,14 @@ class Poker_model extends CI_Model {
     }
 
     function getJogadoresTorneio($id){
-        $this->defaultDB->where('id', $id);
-        $this->defaultDB->order_by("nome ASC");
-        return $this->defaultDB->get(self::TABLE_JOGADOR);
+        $this->defaultDB->where('torneio_id', $id);
+        $this->defaultDB->select('*', FALSE); 
+        $this->defaultDB->select_sum(self::TABLE_JOGADOR_TORNEIO.'.pontos','pontos_total');
+        $this->defaultDB->order_by(self::TABLE_JOGADOR.'.nome ASC');
+        $this->defaultDB->join(self::TABLE_JOGADOR, self::TABLE_JOGADOR_TORNEIO.'.jogador_id = '.self::TABLE_JOGADOR.'.id');
+        $this->defaultDB->group_by(self::TABLE_JOGADOR_TORNEIO.".jogador_id"); 
+        return $this->defaultDB->get(self::TABLE_JOGADOR_TORNEIO);
+        //SELECT *, SUM(pontos) as pontos_total FROM poker_relacao JOIN poker_jogador ON poker_relacao.jogador_id = poker_jogador.id WHERE poker_relacao.torneio_id = 1 GROUP BY jogador_id
     }
     function inserirJogadorTorneio($array){
         return $this->defaultDB->insert(self::TABLE_JOGADOR_TORNEIO, $array);
@@ -63,5 +68,13 @@ class Poker_model extends CI_Model {
             return true;
         }
         
+    }
+    function deletarJogadorTorneio($array){
+        $this->defaultDB->where($array);
+        if($this->defaultDB->delete(self::TABLE_JOGADOR_TORNEIO)){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

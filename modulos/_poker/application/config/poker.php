@@ -11,6 +11,7 @@ $config['poker'] = '34';
 $config['poker_torneio_novo'] = '35';
 $config['poker_torneio_detalhes'] = '36';
 $config['poker_torneio_inserir_jogador'] = '37';
+$config['poker_torneio_deletar_jogador'] = '38';
 //$config['portfolio_categoria'] = '28';
 //$config['portfolio_categoria_editar'] = '29';
 //$config['portfolio_novo'] = '30';
