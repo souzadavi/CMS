@@ -57,7 +57,25 @@ class Poker_model extends CI_Model {
         //SELECT *, SUM(pontos) as pontos_total FROM poker_relacao JOIN poker_jogador ON poker_relacao.jogador_id = poker_jogador.id WHERE poker_relacao.torneio_id = 1 GROUP BY jogador_id
     }
     function inserirJogadorTorneio($array){
-        return $this->defaultDB->insert(self::TABLE_JOGADOR_TORNEIO, $array);
+        //$this->defaultDB->insert_batch(self::TABLE_JOGADOR_TORNEIO, $array); 
+        if($this->defaultDB->insert(self::TABLE_JOGADOR_TORNEIO, $array)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    function inserirJogadorTorneioPontuacao($array){
+        //$this->defaultDB->insert_batch(self::TABLE_JOGADOR_TORNEIO, $array); 
+        if($this->defaultDB->insert(self::TABLE_JOGADOR_TORNEIO, $array)){
+            // Atualizar Etapa Atual do Torneio
+            $this->defaultDB->where('id', $array['torneio_id']);
+            //$this->defaultDB->set('realizada_etapas','23');
+            $this->defaultDB->update(self::TABLE, array('realizada_etapas' => $array['etapa']),"id = ".$array['torneio_id']);
+            return true;
+        }else{
+            return false;
+        }
     }
     
     function verificarJogadorTorneio($array){
