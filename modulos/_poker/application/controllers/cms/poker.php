@@ -168,7 +168,9 @@ class Poker extends CI_Controller {
                 //echo "entreui aqui". var_dump($_FILES['imagem']);
                 $imagem = $this->poker_model->getTorneio($id)->row()->imagem;
                 $config['file_name'] = $imagem;
-                unlink($config['upload_path'] . $imagem);
+                if(file_exists($config['upload_path'] . $imagem)){
+                    unlink($config['upload_path'] . $imagem);
+                }
                 //echo var_dump($config);
 
                 $this->load->library('upload', $config);
@@ -203,7 +205,7 @@ class Poker extends CI_Controller {
                 );
                 $this->logs->gravar($arrayLog);
                 ///FIM LOGS
-                
+
                 $this->session->set_flashdata("script_head", "Dados alterado com sucesso.");
                 redirect(base_cms() . "poker/detalhes/" . $id);
             } else {
@@ -221,7 +223,7 @@ class Poker extends CI_Controller {
         $data['username'] = $this->tank_auth->get_username();
         $this->permissions->check_permission($this->config->item('poker_torneio_detalhes'));
         $data['menuLinks'] = $this->permissions->monta_menu(); // montar menu superior
-        $data['menus'] = $this->permissions->monta_menu($this->config->item('poker_torneio_detalhes')); // montar menu lateral
+        $data['menus'] = $this->permissions->monta_menu($this->config->item('poker')); // montar menu lateral
 
         if ($this->session->flashdata('script_head')) {
             $data['script_head'] = $this->mensagem->call($this->session->flashdata('script_head'));
@@ -235,6 +237,22 @@ class Poker extends CI_Controller {
         //$data['bannerCliques'] = $this->banner_model->getBannerCliques($id);
         //$data['categorias'] = $this->banner_model->getAllCategorias();
         $this->load->view(base_cms() . 'poker_torneio_detalhes', $data);
+    }
+    
+    function jogadorLista() {
+        $data['user_id'] = $this->tank_auth->get_user_id();
+        $data['username'] = $this->tank_auth->get_username();
+        $this->permissions->check_permission($this->config->item('poker_jogador_listar'));
+        $data['menuLinks'] = $this->permissions->monta_menu(); // montar menu superior
+        $data['menus'] = $this->permissions->monta_menu($this->config->item('poker')); // montar menu lateral
+
+        $data['jogadores'] = $this->poker_model->getAllJogador();
+        
+        if ($this->session->flashdata('script_head')) {
+            $data['script_head'] = $this->mensagem->call($this->session->flashdata('script_head'));
+        }
+
+        $this->load->view(base_cms() . 'poker_jogador_lista', $data);
     }
 
     function inserirJogadorTorneio($id) {
@@ -361,202 +379,199 @@ class Poker extends CI_Controller {
         redirect(base_cms() . "poker/detalhes/" . $torneio);
     }
 
-    /*
+    function jogador() {
+        $data['user_id'] = $this->tank_auth->get_user_id();
+        $data['username'] = $this->tank_auth->get_username();
+        $this->permissions->check_permission($this->config->item('poker_jogador_novo'));
+        $data['menuLinks'] = $this->permissions->monta_menu(); // montar menu superior
+        $data['menus'] = $this->permissions->monta_menu($this->config->item('poker')); // montar menu lateral
 
-      function alterar($id) {
+        $data['modo'] = "novo";
 
-      $data['user_id'] = $this->tank_auth->get_user_id();
-      $data['username'] = $this->tank_auth->get_username();
-      $this->permissions->check_permission($this->config->item('banner_detalhes'));
-      $data['menuLinks'] = $this->permissions->monta_menu(); // montar menu superior
-      $data['menus'] = $this->permissions->monta_menu($this->config->item('banner')); // montar menu lateral
+        if (!is_dir($this->config->item('path_upload_poker'))) {
+            $data['script_head'] = $this->mensagem->call($this->config->item('folder_no_existe') . "<br>" . $this->config->item('path_upload_poker'));
+            log_message('level', $this->config->item('folder_no_existe'));
+            //show_error('messag1111e' ,500 );
+        }
+        if ($this->session->flashdata('script_head')) {
+            $data['script_head'] = $this->mensagem->call($this->session->flashdata('script_head'));
+        }
+        $this->load->view(base_cms() . 'poker_jogador', $data);
+    }
 
-      $data['modo'] = "editar";
+    function inserirJogador() {
 
-      $this->load->library('form_validation');
-      $this->load->library('input');
+        $data['user_id'] = $this->tank_auth->get_user_id();
+        $data['username'] = $this->tank_auth->get_username();
+        $this->permissions->check_permission($this->config->item('poker_jogador_novo'));
+        $data['menuLinks'] = $this->permissions->monta_menu(); // montar menu superior
+        $data['menus'] = $this->permissions->monta_menu($this->config->item('poker')); // montar menu lateral
 
-      $this->form_validation->set_rules('categoria_id', 'categoria_id', 'trim|required');
-      $this->form_validation->set_rules('titulo', 'titulo', 'trim|required');
-      $this->form_validation->set_rules('status', 'status', 'trim|required');
 
-      if ($this->form_validation->run()) {
+        $data['modo'] = "novo";
 
-      $banner = $this->banner_model->getBanner($id)->row();
-      $tipo = $banner->tipo;
-      $imagem = $banner->imagem;
-      $flash = $banner->flash;
+        $this->load->library('form_validation');
 
-      if ($_FILES['imagem']) {
-      /// UPLOAD
-      /// setando configs para subir arquivo
-      $config['allowed_types'] = $this->config->item('conteudo_allowed_types');
-      $config['max_size'] = $this->config->item('conteudo_max_size');
-      $config['max_width'] = $this->config->item('conteudo_max_width');
-      $config['max_height'] = $this->config->item('conteudo_max_height');
-      $config['upload_path'] = $this->config->item('path_upload_banner');
-      /// setando o nome da nova imagem
-      $config['file_name'] = url_title(uniqid() . "-" . $this->input->post('titulo') . "-" . $_FILES['imagem']['name']);
-      //echo var_dump($config);
+        $this->form_validation->set_rules('nome', 'nome', 'trim|required');
+        $this->form_validation->set_rules('codigo', 'codigo', 'trim|required');
 
-      $this->load->library('upload', $config);
-      if ($this->upload->do_upload('imagem')) {
-      $uploadLog = $this->upload->data();
-      /////// DELETAR ARQUIVO ANTIGO
-      unlink($config['upload_path'] . $banner->imagem);
-      $imagem = $uploadLog['file_name'];
-      if ($tipo != ".swf") {
-      $tipo = $uploadLog['file_ext'];
-      }
-      }
-      }
+        if ($this->form_validation->run()) {
+            /// UPLOAD
+            /// setando configs para subir arquivo
+            $config['allowed_types'] = $this->config->item('poker_allowed_types');
+            $config['max_size'] = $this->config->item('poker_max_size');
+            $config['max_width'] = $this->config->item('poker_max_width');
+            $config['max_height'] = $this->config->item('poker_max_height');
+            $config['upload_path'] = $this->config->item('path_upload_poker');
+            /// setando o nome da nova imagem
+            $imagem = Null;
 
-      // Subir o FLASH verifica o TYPE. Caso o SWF não suba, retire o comentário da linha 162 e veja como o servidor web identifica o type do flash e altere no linha 163 a condição.
-      //echo $_FILES['flash']['type']
-      if ($_FILES['flash'] && $_FILES['flash']['type'] == "application/x-shockwave-flash") {
-      $config['file_name'] = url_title(uniqid() . "-" . $this->input->post('titulo') . "-" . $_FILES['flash']['name']);
-      $this->upload->initialize($config);
-      if ($this->upload->do_upload('flash')) {
-      $uploadLog = $this->upload->data();
-      /////// DELETAR ARQUIVO ANTIGO
-      if ($banner->flash) {
-      unlink($config['upload_path'] . $banner->flash);
-      }
-      $flash = $uploadLog['file_name'];
-      $tipo = $uploadLog['file_ext'];
-      }
-      }
-      // echo var_dump($this->upload->display_errors()).$config['upload_path'];
-      /// FIM UPLOAD
-      /// TRATAR LINK:
-      $link = $this->_linkTratar($this->input->post('link'));
+            //echo var_dump($config);
 
-      $array = array(
-      'users_id' => $this->tank_auth->get_user_id(),
-      'categoria_id' => $this->input->post('categoria_id'),
-      'titulo' => $this->input->post('titulo'),
-      'imagem' => $imagem,
-      'flash' => $flash,
-      'status' => $this->input->post('status'),
-      'tipo' => $tipo,
-      'link' => $link
-      );
-      if ($this->banner_model->atualizarBanner($id, $array)) {
-      //$this->categoria($this->input->post('categoria_id'));
-      //$data['script_head'] = $this->mensagem->call($this->config->item('Salvo com sucesso'));
-      //INICIO LOGS
-      $this->load->library('logs');
-      $arrayLog = array(
-      'users_id' => $this->tank_auth->get_user_id(),
-      'url' => "banner/alterar/".$id,
-      'log' => print_r($array, true),
-      'ip' => $this->input->ip_address()
-      );
-      $this->logs->gravar($arrayLog);
-      ///FIM LOGS
+            $jogador = array(
+                'codigo' => $this->input->post('codigo'),
+            );
+            if($this->poker_model->verificarJogadorCodigo($jogador)){ // VERIFICA SE O CODIGO JA É CADASTRADO
+                if ($_FILES['imagem']['name'] != "") {
+                    $config['file_name'] = url_title(uniqid() . "-" . $this->input->post('nome') . "-" . $_FILES['imagem']['name']);
+                    $this->load->library('upload', $config);
+                    if ($this->upload->do_upload('imagem')) {
+                        $uploadLog = $this->upload->data();
+                        $tipo = $uploadLog['file_ext'];
+                        $imagem = $config['file_name'];
+                    } else {
+                        // ERRO NO UPLOAD DA IMAGEM
+                        $this->session->set_flashdata("script_head", "Erro ao Subir arquivo. " . $this->upload->display_errors());
+                        $this->novo();
+                    }
+                }
 
-      redirect(base_cms() . 'banner/detalhes/' . $id);
-      } else {
-      //$data['script_head'] = $this->mensagem->call($this->config->item('folder_no_existe')."<br>".base_cms().$this->config->item('path_upload_portfolio'));
-      //$data['script_head'] = $this->mensagem->call("Erro ao Salvar no Banco.");
-      redirect(base_cms() . 'banner/detalhes/' . $id);
-      }
-      } else {
-      //$data['script_head'] = $this->mensagem->call("Preencha os campos corretamente.");
-      redirect(base_cms() . 'banner/detalhes/' . $id);
-      }
-      }
+                $array = array(
+                    'users_id' => $this->tank_auth->get_user_id(),
+                    'nome' => $this->input->post('nome'),
+                    'codigo' => $this->input->post('codigo'),
+                    'foto' => $imagem
+                );
 
-      function deletarFlash($id) {
+                if ($this->poker_model->inserirJogador($array)) {
+                    //INICIO LOGS
+                    $this->load->library('logs');
+                    $arrayLog = array(
+                        'users_id' => $this->tank_auth->get_user_id(),
+                        'url' => "poker/inserirJogador",
+                        'log' => print_r($array, true),
+                        'ip' => $this->input->ip_address()
+                    );
+                    $this->logs->gravar($arrayLog);
+                    ///FIM LOGS
+                    $this->session->set_flashdata("script_head", "Jogador Inserido com Sucesso.");
+                    redirect(base_cms() . 'poker/jogadorLista');
+                } else {
+                    $this->session->set_flashdata("script_head", "Erro ao Salvar no Banco.");
+                    $this->jogador();
+                }
+            }else{
+                $this->session->set_flashdata("script_head", "Código de Jogador já cadastrado no Sistema.");
+                $this->jogador();
+            }
+        } else {
+            $this->session->set_flashdata("script_head", "Preencha os campos corretamente.");
+            $this->jogador();
+        }
+    }
 
-      $data['user_id'] = $this->tank_auth->get_user_id();
-      $data['username'] = $this->tank_auth->get_username();
-      $this->permissions->check_permission($this->config->item('banner_detalhes'));
-      $data['menuLinks'] = $this->permissions->monta_menu(); // montar menu superior
-      $data['menus'] = $this->permissions->monta_menu($this->config->item('banner')); // montar menu lateral
+    function jogadorDetalhes($id) {
+        $data['user_id'] = $this->tank_auth->get_user_id();
+        $data['username'] = $this->tank_auth->get_username();
+        $this->permissions->check_permission($this->config->item('poker_jogador_detalhes'));
+        $data['menuLinks'] = $this->permissions->monta_menu(); // montar menu superior
+        $data['menus'] = $this->permissions->monta_menu($this->config->item('poker')); // montar menu lateral
 
-      $banner = $this->banner_model->getBanner($id)->row();
-      $tipo = $banner->tipo;
+        $data['modo'] = "editar";
 
-      $tipo = substr($banner->imagem, -4);
+        
+        if ($this->session->flashdata('script_head')) {
+            $data['script_head'] = $this->mensagem->call($this->session->flashdata('script_head'));
+        }
 
-      if (unlink($this->config->item('path_upload_banner') . $banner->flash)) {
+        $data['jogador'] = $this->poker_model->getJogador($id)->row();
 
-      $array = array(
-      'flash' => '',
-      'tipo' => $tipo
-      );
-      if($this->banner_model->atualizarBanner($id, $array)){
+        $this->load->view(base_cms() . 'poker_jogador', $data);
+    }
+    
+    function jogadorAlterar($id) {
+        $data['user_id'] = $this->tank_auth->get_user_id();
+        $data['username'] = $this->tank_auth->get_username();
+        $this->permissions->check_permission($this->config->item('poker_jogador_alterar'));
+        $data['menuLinks'] = $this->permissions->monta_menu(); // montar menu superior
+        $data['menus'] = $this->permissions->monta_menu($this->config->item('poker')); // montar menu lateral
 
-      //INICIO LOGS
-      $this->load->library('logs');
-      $arrayLog = array(
-      'users_id' => $this->tank_auth->get_user_id(),
-      'url' => "banner/deletarFlash/".$id,
-      'log' => print_r($array, true),
-      'ip' => $this->input->ip_address()
-      );
-      $this->logs->gravar($arrayLog);
-      ///FIM LOGS
-      }
-      }
-      redirect(base_cms() . 'banner/detalhes/' . $id);
-      }
+        $data['modo'] = "editar";
 
-      function clicktag($id) {
+        
+        $this->load->library('form_validation');
 
-      if ($this->input->server('HTTP_REFERER')) {
-      $url_last = $this->input->server('HTTP_REFERER');
-      } else {
-      $url_last = '';
-      }
+        $this->form_validation->set_rules('nome', 'nome', 'trim|required');
+        $this->form_validation->set_rules('codigo', 'codigo', 'trim|required');
 
-      $array = array(
-      'banner_id' => $id,
-      'tipo' => '1', // 1= clique, 0 = views
-      'ip' => $this->input->ip_address(),
-      'url_referencia' => $url_last
-      );
-      $banner = $this->banner_model->inserirStats($array);
+        if ($this->form_validation->run()) {
+            /// UPLOAD
+            /// setando configs para subir arquivo
+            $config['allowed_types'] = $this->config->item('poker_allowed_types');
+            $config['max_size'] = $this->config->item('poker_max_size');
+            $config['max_width'] = $this->config->item('poker_max_width');
+            $config['max_height'] = $this->config->item('poker_max_height');
+            $config['upload_path'] = $this->config->item('path_upload_poker');
+            /// setando o nome da nova imagem
+            if($this->poker_model->getJogador($id)->row()->foto != ""){
+                $imagem = $this->poker_model->getJogador($id)->row()->foto;
+            }else{
+                $imagem = url_title(uniqid() . "-" . $this->input->post('nome') . "-" . $_FILES['imagem']['name']);
+            }
 
-      $banner = $this->banner_model->getBanner($id)->row();
-      redirect($banner->link);
-      }
+                if ($_FILES['imagem']['name'] != "") {
+                    $config['file_name'] = $imagem;
+                    $this->load->library('upload', $config);
+                    if(file_exists($config['upload_path'] . $imagem)){
+                        unlink($config['upload_path'] . $imagem);
+                    }
+                    if ($this->upload->do_upload('imagem')) {
+                        $uploadLog = $this->upload->data();
+                        $tipo = $uploadLog['file_ext'];
+                    } else {
+                        // ERRO NO UPLOAD DA IMAGEM
+                        $this->session->set_flashdata("script_head", "Erro ao Subir arquivo. " . $this->upload->display_errors());
+                        redirect(base_cms() . 'poker/jogadorDetalhes/'.$id);
+                    }
+                }
 
-      /// Retornar a imagem se quiser que ao invés de flash retornar apenas imagem chame o metodo com flash= false
-      function view($id, $flash=true) {
+                $array = array(
+                    'users_id' => $this->tank_auth->get_user_id(),
+                    'nome' => $this->input->post('nome'),
+                    'foto' => $imagem
+                );
 
-      if ($this->input->server('HTTP_REFERER')) {
-      $url_last = $this->input->server('HTTP_REFERER');
-      } else {
-      $url_last = '';
-      }
+                if ($this->poker_model->atualizarJogador($id, $array)) {
+                    //INICIO LOGS
+                    $this->load->library('logs');
+                    $arrayLog = array(
+                        'users_id' => $this->tank_auth->get_user_id(),
+                        'url' => "poker/jogadorAlterar",
+                        'log' => print_r($array, true),
+                        'ip' => $this->input->ip_address()
+                    );
+                    $this->logs->gravar($arrayLog);
+                    ///FIM LOGS
+                    $this->session->set_flashdata("script_head", "Jogador alterado com Sucesso.");
+                    redirect(base_cms() . 'poker/jogadorLista');
+                } else {
+                    $this->session->set_flashdata("script_head", "Erro ao Salvar no Banco.");
+                    redirect(base_cms() . 'poker/jogadorDetalhes/'.$id);
+                }
+        } else {
+            $this->session->set_flashdata("script_head", "Preencha os campos corretamente.");
+            redirect(base_cms() . 'poker/jogadorDetalhes/'.$id);
+        }
+    }
 
-      $array = array(
-      'banner_id' => $id,
-      'tipo' => '0', // 1= clique, 0 = views
-      'ip' => $this->input->ip_address(),
-      'url_referencia' => $url_last
-      );
-      $banner = $this->banner_model->inserirStats($array);
-
-      $banner = $this->banner_model->getBanner($id)->row();
-      if ($banner->tipo == ".swf" && $flash) {
-      echo $banner->flash;
-      } else {
-      echo $banner->imagem;
-      }
-      }
-
-      function _linkTratar($link) {
-      if (!stristr($link, 'http://') && $link != "http://") {
-      $linkTratado = "http://" . $link;
-      } elseif ($link == "http://") {
-      $linkTratado = "";
-      } else {
-      $linkTratado = $link;
-      }
-      return $linkTratado;
-      }
-     */
 }

@@ -65,3 +65,7 @@ insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) val
 insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (38,34,'1','Deletar Jogador em Torneio','poker/deletarJogadorTorneio',1);
 insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (39,34,'1','Atualizar Pontuação de Jogador no Torneio','poker/etapasAtualizar',1);
 insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (40,34,'1','Alterar Torneio','poker/alterar',1);
+insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (41,34,'0','Novo Jogador','poker/jogador',1);
+insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (42,34,'0','Listar Jogadores','poker/jogadorLista',1);
+insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (43,34,'1','Detalhes Jogador','poker/jogadorDetalhes',1);
+insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (44,34,'1','Alterar Jogador','poker/jogadorAlterar',1);
