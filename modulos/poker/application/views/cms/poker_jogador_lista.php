@@ -33,18 +33,22 @@
           <div id="conteudo_corpo">
             <!-- TITULO PAGINA -->
             <div id="topo_conteudo">
-              <div id="titulo_admin">Torneios Cadastrados</div>
+              <div id="titulo_admin">Jogadores Cadastrados</div>
             </div>
             <!-- FIM TITULO PAGINA -->
-            <p class="observacao">Gerencie um dos torneios de Poker clicando em um dos nomes abaixo.</p>
+            <p class="observacao">Gerenciar Jogadores Cadastrados ou Cadastrar um novo jogador.</p>
 
             <table width="850" border="0" cellpadding="5" cellspacing="3" id="listagem">
-              <?php foreach($torneios->result() as $torneio){ ?>
               <tr>
-                <td width="35" style="padding-left:20px">
-                   <?php if($torneio->status){ ?><a href="poker/status/<?php echo $torneio->id; ?>/1" title="Desativar"><img src="img/publicado.png" alt="" width="16" height="16" /></a><?php }else{ ?><a href="poker/status/<?php echo $torneio->id; ?>/0" title="Ativar"><img src="img/nao_publicado.png" alt="" width="16" height="16" /></a><?php } ?>
+              	<th>Nome</th>
+                <th>Código Cliente</th>
+              </tr>
+			  <?php foreach($jogadores->result() as $jogador){ ?>
+              <tr>
+                <td width="282" style="padding-left:20px">
+                   <a href="poker/jogadorDetalhes/<?php echo $jogador->id; ?>"><?php echo $jogador->nome; ?></a>
                 </td>
-                <td width="786"><a href="poker/detalhes/<?php echo $torneio->id; ?>"><?php echo $torneio->nome; ?></a> - <a href="<?php echo base_url(); ?>/poker/index<?php echo $torneio->id; ?>" target="_blank">ranking</a></td>
+                <td width="539"><?php echo $jogador->codigo; ?></td>
               </tr>
               <?php } ?>
             </table>
