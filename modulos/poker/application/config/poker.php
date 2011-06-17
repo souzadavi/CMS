@@ -30,7 +30,7 @@ $config['poker_max_width'] = "2000";
 $config['poker_max_height'] = "2000";
 
 //UPLOAD PORTFOLIO
-$config['path_upload_poker'] = $_SERVER['DOCUMENT_ROOT']."/produtoraweb/upload/poker/";
+$config['path_upload_poker'] = $_SERVER['DOCUMENT_ROOT']."/upload/poker/";
 
 // MENSAGEM ERROS
 $config['folder_no_existe'] = 'Pasta não existente no servidor ou ser permissão ';

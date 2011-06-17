@@ -6,7 +6,7 @@
     <script type="text/javascript" src="js/tiny_mce/jquery.tinymce.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-			<?php echo isset($script_head) ? $script_head : ''; ?>
+			<?php //echo isset($script_head) ? $script_head : ''; ?>
 
             $('#descricao').tinymce({
                     language: "pt",
@@ -171,7 +171,7 @@
                   <br /></td>
           </tr>
           </table>
-          <form action="poker/etapasAtualizar/<?php echo $torneio->id; ?>/<?php echo $torneio->realizada_etapas++; ?>" method="post" enctype="multipart/form-data">
+          <form action="poker/etapasAtualizar/<?php echo $torneio->id; ?>/<?php echo $torneio->realizada_etapas+1; ?>" method="post" enctype="multipart/form-data">
               <table width="100%" style="margin-top:15px;">
 			<?php if(isset($jogadorCadastrado)){ ?>
               <?php if($torneio->realizada_etapas< $torneio->total_etapas){ ?>
@@ -185,7 +185,7 @@
                   <select id="etapaAtual" name="etapaAtual" >
                 <?php //for($i=$torneio->realizada_etapas;$i<=$torneio->total_etapas;$i++){	 ?>
                 <option value="<?php echo $torneio->realizada_etapas; ?>"><?php echo $torneio->realizada_etapas; ?></option>
-                <option value="<?php echo $torneio->realizada_etapas++; ?>"><?php echo $torneio->realizada_etapas++; ?></option>
+                <option value="<?php echo $torneio->realizada_etapas+1; ?>"><?php echo $torneio->realizada_etapas+1; ?></option>
                 <?php //} ?>
               </select>
             </td>

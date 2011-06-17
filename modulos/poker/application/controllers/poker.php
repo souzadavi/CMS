@@ -12,11 +12,17 @@ class Poker extends CI_Controller {
         $this->config->load('poker');
     }
 
-    function index($id) {
+    function index($id='0') {
 
+        if($id==0){
+            $id = $this->poker_model->getAllTorneioStatus(1)->row()->id;
+        }
+        
         $data['torneios'] = $this->poker_model->getAllTorneioStatus(1);
         $data['ranking'] = $this->poker_model->getRanking($id);
         $data['torneioID'] = $id;
+        
+        
         
         $this->load->view('poker_ranking', $data);
     }

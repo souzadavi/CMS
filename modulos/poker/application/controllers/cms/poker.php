@@ -372,9 +372,9 @@ class Poker extends CI_Controller {
                 } else {
                     $this->session->set_flashdata("script_head", "Erro ao atualizar Pontuação.");
                 }
-            } else {
-                $this->session->set_flashdata("script_head", "Etapa não foi atualizada.");
-            }
+            } //else {
+                //$this->session->set_flashdata("script_head", "Etapa não foi atualizada.");
+            //}
         }
         redirect(base_cms() . "poker/detalhes/" . $torneio);
     }

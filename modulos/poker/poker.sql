@@ -38,11 +38,13 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
+
 CREATE  TABLE IF NOT EXISTS `poker_relacao` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `torneio_id` INT(11) NOT NULL ,
   `jogador_id` INT(11) NOT NULL ,
   `pontos` INT(11) NULL DEFAULT 0 ,
+  `etapa` INT(11) NULL DEFAULT 0 ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_poker_relacao_poker_jogador1` (`jogador_id` ASC) ,
   INDEX `fk_poker_relacao_poker_torneio1` (`torneio_id` ASC) ,
@@ -58,8 +60,8 @@ CREATE  TABLE IF NOT EXISTS `poker_relacao` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (34,0,'0','Poker','poker',1);
-insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (35,34,'0','Novo Torneio','poker/novo',1);
+insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (34,0,'1','Poker','poker',1);
+insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (35,34,'1','Novo Torneio','poker/novo',1);
 insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (36,34,'1','Editar Torneio','poker/editar',1);
 insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (37,34,'1','Inserir Jogador em Torneio','poker/inserirJogadorTorneio',1);
 insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`) values (38,34,'1','Deletar Jogador em Torneio','poker/deletarJogadorTorneio',1);
