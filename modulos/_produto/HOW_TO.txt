@@ -1,0 +1,27 @@
+INFORMACOES DE INSTALACAO DO MODULO PRODUTO
+
+@author davi souza
+@since v1.0
+@date 16/06/2011
+
+###########################
+SUBIR ARQUIVOS:
+
+/public_html/application/controllers/cms/produto.php
+/public_html/application/models/cms/produto_model.php
+/public_html/application/config/produto.php
+/public_html/application/views/cms/produto.php
+
+###########################
+SUBIR PASTA e DAR PERMISSAO 777
+/public_html/upload/produto
+
+
+###########################
+INSERIR produto.sql
+
+
+###########################
+EDITAR ARQUIVO /public_html/application/config/produto.php
+
+###########################
