@@ -512,12 +512,21 @@ if ( ! function_exists('url_title'))
 						'&\#\d+?;'				=> '',
 						'&\S+?;'				=> '',
 						'\s+'					=> $replace,
-						'[^a-z0-9\-\._]'		=> '',
+                                                'ç'                             =>'c',
+                                                'á'                             =>'a',
+                                                'à'                             =>'a',
+                                                'ã'                             =>'a',
+                                                'é'                             =>'e',
+												'ê'                             =>'e',
+                                                'í'                             =>'i',
+                                                'õ'                             =>'o',
+                                                'ú'                             =>'u',
+                                                '[^a-z0-9\-\._]'		=> '',
 						$replace.'+'			=> $replace,
 						$replace.'$'			=> $replace,
 						'^'.$replace			=> $replace,
 						'\.+$'					=> ''
-					);
+					  );
 
 		$str = strip_tags($str);
 

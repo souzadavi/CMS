@@ -1,5 +1,5 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-class Conteudo_model extends Model {
+class Conteudo_model extends CI_Model {
     const TABLE			= 'conteudo';
     function __construct() {
         parent::__construct();

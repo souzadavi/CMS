@@ -2,20 +2,25 @@
 
 class Conteudo extends CI_Controller {
 
-    function __construct() {
-
+     function __construct() {
         parent::__construct();
 
         $this->load->library('tank_auth');
+        $this->load->library('mensagem');
+        $this->load->library('session');
         $this->load->library('pagination');
-        $this->load->Model(base_cms() . "Conteudo_model");
+
         if (!$this->tank_auth->is_logged_in()) {
             redirect(base_cms() . 'login');
         }
-        // Validar permissoes
+
+        $this->load->Model(base_cms() . "poker_model");
+        $this->config->load('poker');
         $this->load->library('permissions');
-        $this->permissions->check_permission(1);
+        $this->permissions->check_permission($this->config->item('poker'));
+        $this->load->library('input');
     }
+
 
     function index() {
 
@@ -24,6 +29,10 @@ class Conteudo extends CI_Controller {
         $data['menuLinks'] = $this->permissions->monta_menu(); // montar menu superior
         $data['menus'] = $this->permissions->monta_menu(1); // montar menu lateral
 
+        if ($this->session->flashdata('script_head')) {
+            $data['script_head'] = $this->mensagem->call($this->session->flashdata('script_head'));
+        }
+        
         $data['conteudos'] = $this->Conteudo_model->getAllConteudo();
         $this->load->view(base_cms() . 'conteudo', $data);
         //redirect(base_cms().'destaquehome');
@@ -32,9 +41,9 @@ class Conteudo extends CI_Controller {
     function detalhes($id) {
         $data['user_id'] = $this->tank_auth->get_user_id();
         $data['username'] = $this->tank_auth->get_username();
-        $this->permissions->check_permission(3); // verifica se tem permissão para ver o conteudo
+        $this->permissions->check_permission($this->config->item('portfolio_detalhes')); // verifica se tem permissão para ver o conteudo
         $data['menuLinks'] = $this->permissions->monta_menu(); // montar menu superior
-        $data['menus'] = $this->permissions->monta_menu(1); // montar menu lateral
+        $data['menus'] = $this->permissions->monta_menu($this->config->item('portfolio')); // montar menu lateral
 
         $data['conteudo'] = $this->Conteudo_model->getConteudo($id)->row();
         $this->load->view(base_cms() . 'conteudoEditar', $data);

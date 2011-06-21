@@ -5,11 +5,11 @@
 	<?php include('includes/includeHeader.php'); ?>
 	</head>
     <body>
-    <?php include('includes/topoAdmin.php'); ?>
-	
+    <div id="mensagem"></div>
+
     <!-- INICIO BASE_ADMIN -->
 	<div id="base_admin">
-      <?php //include('includes/topo_admin.php'); ?>
+      <?php include('includes/topo_admin.php'); ?>
       <?php include('includes/menu_admin.php'); ?>
 
       <!-- INICIO CORPO -->
@@ -20,7 +20,7 @@
           
           <!-- MENU ESQUERDA -->
           <div id="menu_lateral">
-            <div id="tit_menu_lateral">Usuários</div>
+            <div id="tit_menu_lateral">Poker</div>
             <ul id="menu_lista" class="lista_menu">
               <?php foreach($menus as $menu){ ?>
               <li class="item_menu"><a href="<?php echo $menu->url; ?>"><?php echo $menu->nome; ?></a></li>
@@ -33,21 +33,20 @@
           <div id="conteudo_corpo">
             <!-- TITULO PAGINA -->
             <div id="topo_conteudo">
-              <div id="titulo_admin">Usuários Cadastrados</div>
+              <div id="titulo_admin">Torneios Cadastrados</div>
             </div>
             <!-- FIM TITULO PAGINA -->
-            <p class="observacao">Primeiro parágrafo será destacado.</p>
+            <p class="observacao">Gerencie um dos torneios de Poker clicando em um dos nomes abaixo.</p>
 
-            <table width="100%" border="0" cellspacing="3" cellpadding="5" id="listagem">
+            <table width="850" border="0" cellpadding="5" cellspacing="3" id="listagem">
+              <?php foreach($torneios->result() as $torneio){ ?>
               <tr>
-                <td width="32" style="padding-left:20px">
-                  <a href="usuario/status/0" title="Desativar"><img src="img/publicado.png" alt="" width="16" height="16" /></a>
+                <td width="35" style="padding-left:20px">
+                   <?php if($torneio->status){ ?><a href="poker/status/<?php echo $torneio->id; ?>/1" title="Desativar"><img src="img/publicado.png" alt="" width="16" height="16" /></a><?php }else{ ?><a href="poker/status/<?php echo $torneio->id; ?>/0" title="Ativar"><img src="img/nao_publicado.png" alt="" width="16" height="16" /></a><?php } ?>
                 </td>
-                <td width="130"><a href="usuario/detalhes/"></a></td>
-                <td width="270"> - IP: </td>
-                <td width="180"></td>
-                <td><a href="usuario/permissao/" class="botao_normal botao">Alterar</a></td>
+                <td width="786"><a href="poker/detalhes/<?php echo $torneio->id; ?>"><?php echo $torneio->nome; ?></a> - <a href="<?php echo base_url(); ?>/poker/index<?php echo $torneio->id; ?>" target="_blank">ranking</a></td>
               </tr>
+              <?php } ?>
             </table>
           </div>
           <!-- FIM CONTEUDO_CORPO -->
