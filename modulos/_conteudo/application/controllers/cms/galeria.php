@@ -8,28 +8,29 @@ class Galeria extends CI_Controller {
     function __construct() {
         parent::__construct();
 
-        $this->load->library('form_validation');
-
         $this->load->library('tank_auth');
-        $this->load->library('permissions');
-
-        $this->load->Model(base_cms() . "Galeria_model");
-        $this->config->load("cms");
+        $this->load->library('mensagem');
+        $this->load->library('session');
+        //$this->load->library('form_validation');
 
         if (!$this->tank_auth->is_logged_in()) {
             redirect(base_cms() . 'login');
         }
-        $this->permissions->check_permission(11);
+
+        $this->load->Model(base_cms() . "galeria_model");
+        $this->config->load('galeria');
+        $this->load->library('permissions');
+        $this->permissions->check_permission($this->config->item('galeria'));
+        $this->load->library('input');
     }
 
     function index() {
-
         $data['user_id'] = $this->tank_auth->get_user_id();
         $data['username'] = $this->tank_auth->get_username();
         $data['menuLinks'] = $this->permissions->monta_menu(); // montar menu superior
-        $data['menus'] = $this->permissions->monta_menu(24); // montar menu lateral
+        $data['menus'] = $this->permissions->monta_menu($this->config->item('galeria')); // montar menu lateral
 
-        $data['galerias'] = $this->Galeria_model->grupoListar();
+        $data['galerias'] = $this->galeria_model->getAllCategorias();
 
         $this->load->view(base_cms() . 'galeria', $data);
     }

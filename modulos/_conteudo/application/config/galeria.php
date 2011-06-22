@@ -8,7 +8,7 @@
 */
 
 // MODULOS E PERMISSOES
-$config['galeria'] = '1';
+$config['galeria'] = '24';
 
 /*
 $config['conteudo_pagina'] = '2';

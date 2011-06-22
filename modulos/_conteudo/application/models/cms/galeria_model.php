@@ -5,11 +5,15 @@ if (!defined('BASEPATH'))
 
 class Galeria_model extends CI_Model {
     const TABLE = 'galeria';
-    const TABLE_GRUPO = 'galeria_grupo';
+    const TABLE_CATEGORIA = 'conteudo_galeria_categoria';
 
     function __construct() {
         parent::__construct();
         $this->defaultDB = $this->load->database('default', TRUE);
+    }
+    function getAllCategorias(){
+        $this->defaultDB->order_by("nome Asc");
+        return $this->defaultDB->get(self::TABLE_CATEGORIA);
     }
 
     /**
@@ -18,10 +22,10 @@ class Galeria_model extends CI_Model {
      * @param	int
      * @param	bool
      * @return	object
-     */
-    /// LABMIN MODELS
+    
+    
     function inserirGrupo($array) {
-        $this->defaultDB->insert(self::TABLE_GRUPO, $array);
+        $this->defaultDB->insert(self::TABLE_GALERIA_CATEGORIA, $array);
         return $this->defaultDB->insert_id();
     }
 
@@ -44,12 +48,12 @@ class Galeria_model extends CI_Model {
     }
 
     function grupoListar() {
-        return $this->defaultDB->get(self::TABLE_GRUPO);
+        return $this->defaultDB->get(self::TABLE_GALERIA_CATEGORIA);
     }
 
     function grupo($id) {
         $this->defaultDB->where("id_grupo", $id);
-        return $this->defaultDB->get(self::TABLE_GRUPO);
+        return $this->defaultDB->get(self::TABLE_GALERIA_CATEGORIA);
     }
 
     function atualizar($id, $array) {
@@ -61,6 +65,6 @@ class Galeria_model extends CI_Model {
     function deletar($src) {
         //$this->defaultDB->delete();
         $this->defaultDB->delete(self::TABLE, array('src' => $src));
-    }
+    } */
 
 }

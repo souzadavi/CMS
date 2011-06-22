@@ -10,7 +10,7 @@ CREATE  TABLE IF NOT EXISTS `produto` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `users_id` INT(11) NOT NULL ,
   `categoria_id` INT(11) NOT NULL ,
-  `galeria_id` INT(11) NULL DEFAULT 0 ,
+  `galeria_categoria_id` INT(11) NULL DEFAULT NULL ,
   `nome` VARCHAR(45) NOT NULL ,
   `status` CHAR(1) NOT NULL DEFAULT 0 ,
   `imagem` VARCHAR(250) NULL ,
@@ -21,7 +21,7 @@ CREATE  TABLE IF NOT EXISTS `produto` (
   PRIMARY KEY (`id`) ,
   INDEX `fk_produto_users1` (`users_id` ASC) ,
   INDEX `fk_produto_produto_categoria1` (`categoria_id` ASC) ,
-  INDEX `fk_produto_conteudo_galeria1` (`galeria_id` ASC) ,
+  INDEX `fk_produto_conteudo_galeria_categoria1` (`galeria_categoria_id` ASC) ,
   CONSTRAINT `fk_produto_users1`
     FOREIGN KEY (`users_id` )
     REFERENCES `linknac_sitedb`.`users` (`id` )
@@ -32,9 +32,9 @@ CREATE  TABLE IF NOT EXISTS `produto` (
     REFERENCES `produto_categoria` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_produto_conteudo_galeria1`
-    FOREIGN KEY (`galeria_id` )
-    REFERENCES `conteudo_galeria` (`id` )
+  CONSTRAINT `fk_produto_conteudo_galeria_categoria1`
+    FOREIGN KEY (`galeria_categoria_id` )
+    REFERENCES `conteudo_galeria_categoria` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

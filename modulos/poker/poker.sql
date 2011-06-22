@@ -3,7 +3,7 @@ CREATE  TABLE IF NOT EXISTS `poker_jogador` (
   `users_id` INT(11) NOT NULL ,
   `nome` VARCHAR(250) NOT NULL ,
   `codigo` VARCHAR(150) NOT NULL ,
-  `foto` VARCHAR(150) NULL ,
+  `foto` VARCHAR(255) NULL ,
   `data_add` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_poker_jogador_users1` (`users_id` ASC) ,

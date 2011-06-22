@@ -44,7 +44,7 @@
 			<?php if($modo =="editar"){ ?>
 			$('#abrir').click(function(){
 				$('#formEditarTorneio').slideDown();
-				$('#abrir').attr("src","img/fechado.png");
+				$('#abrir').attr("src","/<?php echo base_cms();?>img/fechado.png");
 			});
 			
 			<?php $i = 0; foreach($jogadoresInscritos->result() as $jogadorInscrito){ ?>
@@ -226,7 +226,7 @@
             </form>
         <!-- TITULO PAGINA -->
         <div id="topo_conteudo" style="margin-top:35px;">
-              <div id="titulo_admin" class="titulo_admin">Editar  Torneio - <?php echo $torneio->nome; ?><img src="img/aberto.png" alt="" width="30" height="30" style="float:right;" id="abrir" /></div>
+              <div id="titulo_admin" class="titulo_admin">Editar  Torneio - <?php echo $torneio->nome; ?><img src="/<?php echo base_cms(); ?>img/aberto.png" alt="" width="30" height="30" style="float:right;" id="abrir" /></div>
             </div>
         <!-- FIM TITULO PAGINA -->
         <form action="poker/alterar/<?php echo $torneio->id; ?>" method="post" enctype="multipart/form-data" style="display:none;" id="formEditarTorneio">

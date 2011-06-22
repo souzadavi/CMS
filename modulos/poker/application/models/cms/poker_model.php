@@ -128,6 +128,14 @@ class Poker_model extends CI_Model {
     }
     
     function getRanking($torneio_id){
-        return $this->defaultDB->query("SELECT poker_jogador.foto, poker_jogador.nome, poker_torneio.maximo_pontos, SUM(pontos) as pontos_total, COUNT(etapa) as total_etapas_jogadas,  COUNT(etapa)/poker_torneio.total_etapas AS coeficiente  FROM poker_relacao JOIN poker_jogador ON poker_relacao.jogador_id = poker_jogador.id JOIN poker_torneio ON poker_relacao.torneio_id = poker_torneio.id WHERE poker_relacao.etapa != 0 AND poker_relacao.torneio_id = $torneio_id GROUP BY poker_relacao.jogador_id ORDER BY pontos_total DESC");
+        //return $this->defaultDB->query("SELECT poker_jogador.foto, poker_jogador.nome, poker_torneio.maximo_pontos, SUM(pontos) as pontos_total, COUNT(etapa) as total_etapas_jogadas,  COUNT(etapa)/poker_torneio.total_etapas AS coeficiente  FROM poker_relacao JOIN poker_jogador ON poker_relacao.jogador_id = poker_jogador.id JOIN poker_torneio ON poker_relacao.torneio_id = poker_torneio.id WHERE poker_relacao.etapa != 0 AND poker_relacao.torneio_id = $torneio_id GROUP BY poker_relacao.jogador_id ORDER BY pontos_total DESC");
+        return $this->defaultDB->query("SELECT poker_jogador.foto, poker_jogador.nome, poker_torneio.maximo_pontos, SUM(pontos) as pontos_total, COUNT(etapa) as total_etapas_jogadas,  
+ (poker_torneio.maximo_pontos/poker_torneio.total_etapas) as maximo_pontos_etapa, SUM(pontos)/(COUNT(etapa)*(poker_torneio.maximo_pontos/poker_torneio.total_etapas)) AS margem
+
+FROM poker_relacao JOIN poker_jogador ON poker_relacao.jogador_id = poker_jogador.id 
+JOIN poker_torneio ON poker_relacao.torneio_id = poker_torneio.id 
+WHERE poker_relacao.etapa != 0 AND poker_relacao.torneio_id = $torneio_id
+GROUP BY poker_relacao.jogador_id 
+ORDER BY pontos_total DESC");
     }
 }

@@ -30,7 +30,7 @@ body {
 }
 .formTorneio{
 	float:right;
-	width:320px;
+	width:450px;
 	padding:5px;
 }
 .labelTorneio{
@@ -93,7 +93,7 @@ $(document).ready(function(){
         <td><?php if($jogador->foto){ ?><img src="<?php echo base_url() ?>upload/thumb.php?img=poker/<?php echo $jogador->foto; ?>&w=80" style="margin:-30px;" /><?php } ?></td>
         <td><?php echo $jogador->nome; ?></td>
         <td><?php echo $jogador->pontos_total; ?></td>
-        <td><?php echo ($jogador->coeficiente*$jogador->maximo_pontos); //MARGEM=(TOTAL ETAPAS DO TORNEIO / QUANTIDADE DE PARTICIPACAO DO JOGADOR NO TORNEIO) * Maximo Pontos do Torneio ?>%</td>
+        <td><?php echo $jogador->margem*100; // ver calculo no model ?>%</td>
         <td><?php echo $jogador->total_etapas_jogadas; ?> Etapas</td>
     </tr>
     <?php } ?>

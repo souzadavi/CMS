@@ -79,18 +79,18 @@
                   <td height="63" style="padding-left:20px"><label>Categoria
                   <select id="categoria_id" name="categoria_id">
                   	<?php foreach($categorias->result() as $categoria){ ?>
-                    	<option value="<?php echo $categoria->id; ?>"><?php echo $categoria->nome; ?></option>
+                    	<option value="<?php echo $categoria->id; ?>" ><?php echo $categoria->nome; ?></option>
                     <?php } ?>
                   </select>
                      </label></td>
                 </tr>
             <tr>
                   <td height="63" style="padding-left:20px"><label>
-                      <input type="radio" name="status" id="status" value="1" />
+                    <input type="radio" name="status" id="status" value="1"  />
                       Ativado</label>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <label>
-                      <input type="radio" name="status" id="status" value="0" />
+                  <input type="radio" name="status" id="status" value="0" />
                       Desativado</label></td>
                 </tr>
             <tr>
@@ -110,10 +110,19 @@
                 <input name="resumo" type="text" class="estilo_input input" id="resumo" size="80" /></td>
                 </tr>
             <tr>
-                  <td height="63" style="padding-left:20px"><label for="imagem">Imagem do Produto</label>
-                <br />
+                  <td height="63" style="padding-left:20px"><label for="imagem">Imagem do Produto</label><br />
                 <input name="imagem" type="file" class="estilo_input input" id="imagem" /></td>
                 </tr>
+                <!--<tr>
+              <td height="31" style="padding-left:20px"><label>Galeria de Imagem: 
+                  <select id="galeria_categoria_id" name="galeria_categoria_id">
+                  	<option value="NULL" selected="selected" >produto sem galeria de imagens</option>
+                  	<?php foreach($galerias->result() as $galeria){ ?>
+                    	<option value="<?php echo $galeria->id; ?>" ><?php echo $galeria->nome; ?></option>
+                    <?php } ?>
+                  </select>
+                     </label></td>
+            </tr>-->
             <tr>
                   <td height="29" style="padding-left:20px"><br />
                 <label for="descricao">Descrição</label>
@@ -133,54 +142,66 @@
             </div>
         <p class="observacao">Todos os campos são obrigatórios.</p>
         <!-- FIM TITULO PAGINA -->
-        <form action="produto/alterar" method="post" enctype="multipart/form-data">
+        <form action="produto/alterar/<?php echo $produto->id; ?>" method="post" enctype="multipart/form-data">
               <table width="100%" style="margin-top:15px;" id="listagem">
             <tr>
                   <td height="63" style="padding-left:20px"><label>Categoria
                   <select id="categoria_id" name="categoria_id">
                   	<?php foreach($categorias->result() as $categoria){ ?>
-                    	<option id="<?php echo $categoria->id; ?>" <?php if($categoria->id==$produto->categoria_id){ ?> selected="selected"<?php } ?>><?php echo $categoria->nome; ?></option>
+                    	<option value="<?php echo $categoria->id; ?>" <?php if($produto->categoria_id == $categoria->id){ ?>selected="selected"<?php } ?>><?php echo $categoria->nome; ?></option>
                     <?php } ?>
                   </select>
                      </label></td>
                 </tr>
             <tr>
                   <td height="63" style="padding-left:20px"><label>
-                      <input type="radio" name="status" id="status" value="1" />
+                      <input type="radio" name="status" id="status" value="1" <?php if($produto->status == 1){ ?> checked="checked"<?php } ?> />
                       Ativado</label>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <label>
-                      <input type="radio" name="status" id="status" value="0" />
+                      <input type="radio" name="status" id="status" value="0" <?php if($produto->status == 0){ ?> checked="checked"<?php } ?> />
                       Desativado</label></td>
                 </tr>
             <tr>
                   <td height="63" style="padding-left:20px"><label for="nome">Nome do Produto</label>
                 <br />
-                <input name="nome" type="text" class="estilo_input input" id="nome" size="80" /></td>
+                <input name="nome" type="text" class="estilo_input input" id="nome" size="80" value="<?php echo $produto->nome; ?>" /></td>
                 </tr>
             <tr>
                   <td height="63" style="padding-left:20px"><label for="valor">Preço</label>
                 <br />
-                <input name="valor" type="text" class="estilo_input input" id="valor" size="20" /></td>
+                <input name="valor" type="text" class="estilo_input input" id="valor" size="20" value="<?php echo $produto->valor; ?>" /></td>
                 </tr>
             <tr>
-                  <td height="63" style="padding-left:20px"><label for="resumo">Resumo</label>
+                  <td height="63" style="padding-left:20px"><label for="resumo" >Resumo</label>
                 <br />
-                <input name="resumo" type="text" class="estilo_input input" id="resumo" /></td>
+                <input name="resumo" type="text" class="estilo_input input" id="resumo" value="<?php echo $produto->resumo; ?>" /></td>
                 </tr>
             <tr>
-                  <td height="63" style="padding-left:20px"><label for="imagem">Imagem do Produto</label>
+                  <td height="158" style="padding-left:20px"><label for="imagem">Imagem do Produto</label>
                 <br />
+                <?php if($produto->imagem){ ?>
+                <img src="<?php echo base_url(); ?>upload/thumb.php?img=produto/<?php echo $produto->imagem; ?>&w=200" /> <br /><?php } ?>
                 <input name="imagem" type="file" class="estilo_input input" id="imagem" /></td>
                 </tr>
+           <!-- <tr>
+              <td height="67" style="padding-left:20px"><label>Galeria de Imagem: 
+                  <select id="galeria_categoria_id" name="galeria_categoria_id">
+                  	<option value="0" selected="selected" >produto sem galeria de imagens</option>
+                  	<?php foreach($galerias->result() as $galeria){ ?>
+                    	<option value="<?php echo $galeria->id; ?>" <?php if($produto->galeria_categoria_id == $galeria->id){ ?>selected="selected"<?php } ?>><?php echo $galeria->nome; ?></option>
+                    <?php } ?>
+                  </select>
+                     </label></td>
+            </tr>-->
             <tr>
                   <td height="29" style="padding-left:20px"><br />
                 <label for="descricao">Descrição</label>
                 <br />
-                <textarea name="descricao" id="descricao" cols="100" rows="15"></textarea>
+                <textarea name="descricao" id="descricao" cols="100" rows="15"><?php echo $produto->descricao; ?></textarea>
                 <br />
                 <br />
-                <input type="submit" class="botao_normal botao" name="botao" id="botao" value="Inserir novo produto" /></td>
+                <input type="submit" class="botao_normal botao" name="botao" id="botao" value="Alterar produto" /></td>
                 </tr>
           </table>
             </form>
