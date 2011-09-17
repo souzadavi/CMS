@@ -1,156 +1,5 @@
 /*Table structure for table `ci_sessions` */
 
-DROP TABLE IF EXISTS `ci_sessions`;
-
-CREATE TABLE `ci_sessions` (
-  `session_id` varchar(40) collate utf8_bin NOT NULL default '0',
-  `ip_address` varchar(16) collate utf8_bin NOT NULL default '0',
-  `user_agent` varchar(150) collate utf8_bin NOT NULL,
-  `last_activity` int(10) unsigned NOT NULL default '0',
-  `user_data` text collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`session_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
-
-/*Data for the table `galeria` */
-
-/*Table structure for table `galeria_grupo` */
-
-DROP TABLE IF EXISTS `galeria_grupo`;
-
-CREATE TABLE `galeria_grupo` (
-  `id_grupo` int(11) NOT NULL auto_increment,
-  `nome` varchar(45) default NULL,
-  `observacao` text,
-  `data_add` timestamp NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`id_grupo`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='SEMPRE QUE FOR DELETAR UMA CATEGORIA, EFETUAR UM SELECT E DE';
-
-/*Data for the table `galeria_grupo` */
-
-insert  into `galeria_grupo`(`id_grupo`,`nome`,`observacao`,`data_add`) values (18,'Galeria',NULL,'2010-12-16 18:30:22'),(19,'teste',NULL,'2011-01-09 17:15:42');
-
-/*Table structure for table `galeria_tipo` */
-
-DROP TABLE IF EXISTS `galeria_tipo`;
-
-CREATE TABLE `galeria_tipo` (
-  `id_tipo` int(11) NOT NULL auto_increment,
-  `tipo` varchar(150) collate utf8_unicode_ci default NULL,
-  `codigo` text collate utf8_unicode_ci,
-  PRIMARY KEY  (`id_tipo`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
-
-/*Data for the table `galeria_tipo` */
-
-insert  into `galeria_tipo`(`id_tipo`,`tipo`,`codigo`) values (1,'Imagem',NULL),(2,'Flash',NULL);
-
-
-
-
-/*Table structure for table `galeria` */
-
-DROP TABLE IF EXISTS `galeria`;
-
-CREATE TABLE `galeria` (
-  `id` int(11) NOT NULL auto_increment,
-  `users_id` int(11) NOT NULL,
-  `id_tipo` int(11) NOT NULL,
-  `id_grupo` int(11) NOT NULL,
-  `src` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `legenda` varchar(255) collate utf8_unicode_ci default NULL,
-  `link` varchar(150) collate utf8_unicode_ci default NULL,
-  `ordem` varchar(5) collate utf8_unicode_ci default NULL,
-  `data_add` timestamp NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`id`),
-  KEY `fk_galeria_galeria_tipo1` (`id_tipo`),
-  KEY `fk_galeria_galeria_grupo1` (`id_grupo`),
-  KEY `fk_galeria_users1` (`users_id`),
-  CONSTRAINT `fk_galeria_galeria_grupo1` FOREIGN KEY (`id_grupo`) REFERENCES `galeria_grupo` (`id_grupo`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `fk_galeria_galeria_tipo1` FOREIGN KEY (`id_tipo`) REFERENCES `galeria_tipo` (`id_tipo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_galeria_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
-
-
-DROP TABLE IF EXISTS `conteudo`;
-
-CREATE TABLE `conteudo` (
-  `id` int(11) NOT NULL auto_increment,
-  `users_id` int(11) NOT NULL,
-  `id_cat` int(11) NOT NULL,
-  `id_grupo` int(11) default NULL,
-  `titulo` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `status` char(1) collate utf8_unicode_ci default '0',
-  `texto` text collate utf8_unicode_ci,
-  `imagem` varchar(120) collate utf8_unicode_ci default NULL,
-  `legenda` varchar(150) collate utf8_unicode_ci default NULL,
-  `data_add` timestamp NULL default CURRENT_TIMESTAMP,
-  `arquivo` varchar(100) collate utf8_unicode_ci default NULL COMMENT 'Possui arquivo para download? Se sim verificar se é restrito e trazer todos os downloads por arquivos .php',
-  `restrito` char(1) collate utf8_unicode_ci default '0' COMMENT 'Conteúdo para área restrita alterar o valor aqui.',
-  PRIMARY KEY  (`id`),
-  KEY `fk_conteudo_users1` (`users_id`),
-  KEY `fk_conteudo_conteudo_categoria1` (`id_cat`),
-  KEY `fk_conteudo_galeria_grupo1` (`id_grupo`),
-  CONSTRAINT `fk_conteudo_conteudo_categoria1` FOREIGN KEY (`id_cat`) REFERENCES `conteudo_categoria` (`id_cat`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_conteudo_galeria_grupo1` FOREIGN KEY (`id_grupo`) REFERENCES `galeria_grupo` (`id_grupo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_conteudo_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Para desabilitar a imagem ou o texto do conteúdo deixe o cam';
-
-/*Data for the table `conteudo` */
-
-insert  into `conteudo`(`id`,`users_id`,`id_cat`,`id_grupo`,`titulo`,`status`,`texto`,`imagem`,`legenda`,`data_add`,`arquivo`,`restrito`) values (6,20,3,NULL,'agência','1','<h1 class=\"tituloAgencia\">Criatividade com mais qualidade de vida.</h1> \r\n        <p>&nbsp;</p> \r\n        <p>A Alta Brasil possui as unidades de Ribeirão Preto e São Paulo. </p> \r\n        <p>Formados por profissionais vindos de São Paulo\r\n          e de toda a região, na Alta Ribeirão estão concentrados os núcleos de criação, produção, atendimento, planejamento e mídia.<br /> \r\n        </p> \r\n        <p>&nbsp;</p> \r\n        <p>Com essa estratégia, associada à velocidade da internet e o apoio da unidade da capital, a agência consegue atender clientes do Brasil inteiro com criatividade ampliada pela qualidade de vida.</p> ',NULL,NULL,'2010-12-16 16:08:15',NULL,'0');
-
-/*Table structure for table `conteudo_categoria` */
-
-DROP TABLE IF EXISTS `conteudo_categoria`;
-
-CREATE TABLE `conteudo_categoria` (
-  `id_cat` int(11) NOT NULL auto_increment,
-  `nome` varchar(150) collate utf8_unicode_ci NOT NULL,
-  `status` char(1) collate utf8_unicode_ci default '0',
-  `imagem` varchar(150) collate utf8_unicode_ci default NULL,
-  `pai_cat` int(11) default '0',
-  PRIMARY KEY  (`id_cat`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `conteudo_categoria` */
-
-insert  into `conteudo_categoria`(`id_cat`,`nome`,`status`,`imagem`,`pai_cat`) values (3,'Geral','0',NULL,0);
-
-/*Table structure for table `conteudo_tags` */
-
-DROP TABLE IF EXISTS `conteudo_tags`;
-
-CREATE TABLE `conteudo_tags` (
-  `id_tag` int(11) NOT NULL auto_increment,
-  `nome` varchar(150) collate utf8_unicode_ci NOT NULL,
-  `data` timestamp NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`id_tag`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `conteudo_tags` */
-
-/*Table structure for table `conteudo_youtube` */
-
-DROP TABLE IF EXISTS `conteudo_youtube`;
-
-CREATE TABLE `conteudo_youtube` (
-  `id` int(11) NOT NULL auto_increment COMMENT '						',
-  `users_id` int(11) NOT NULL,
-  `titulo` varchar(45) collate utf8_unicode_ci NOT NULL,
-  `youtubeID` varchar(100) collate utf8_unicode_ci NOT NULL,
-  `url` varchar(150) collate utf8_unicode_ci default NULL,
-  `views` int(11) default NULL,
-  `data` timestamp NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`id`),
-  KEY `fk_conteudo_youtube_users1` (`users_id`),
-  CONSTRAINT `fk_conteudo_youtube_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `conteudo_youtube` */
-
-insert  into `conteudo_youtube`(`id`,`users_id`,`titulo`,`youtubeID`,`url`,`views`,`data`) values (2,20,'Alta Comunicazione - Trabalhos 3D 2010','i65BnVFDEV4','http://www.youtube.com/watch?v=i65BnVFDEV4',NULL,'2011-01-13 11:20:22');
-
 DROP TABLE IF EXISTS `login_attempts`;
 
 CREATE TABLE `login_attempts` (
@@ -279,7 +128,7 @@ insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`,`dat
 (32,31,'1','Banner Detalhes','banner/detalhes',0,'2011-03-21 11:08:39'),
 (33,31,'0','Novo Banner','banner/novo',0,'2011-03-21 11:08:39'),
 (34,0,'0','Poker','poker',0,'2011-03-21 11:08:39'),
-(35,34,'0','Novo Torneio','poker/novo',0,'2011-03-21 11:08:39');
+(35,34,'0','Novo Torneio','poker/novo',0,'2011-03-21 11:08:39'),
 (36,34,'1','Editar Torneio','poker/editar',0,'2011-03-21 11:08:39');
 
 
@@ -384,3 +233,156 @@ CREATE TABLE `log` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS `ci_sessions`;
+
+CREATE TABLE `ci_sessions` (
+  `session_id` varchar(40) collate utf8_bin NOT NULL default '0',
+  `ip_address` varchar(16) collate utf8_bin NOT NULL default '0',
+  `user_agent` varchar(150) collate utf8_bin NOT NULL,
+  `last_activity` int(10) unsigned NOT NULL default '0',
+  `user_data` text collate utf8_bin NOT NULL,
+  PRIMARY KEY  (`session_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+/*Data for the table `galeria` */
+
+/*Table structure for table `galeria_grupo` */
+
+DROP TABLE IF EXISTS `galeria_grupo`;
+
+CREATE TABLE `galeria_grupo` (
+  `id_grupo` int(11) NOT NULL auto_increment,
+  `nome` varchar(45) default NULL,
+  `observacao` text,
+  `data_add` timestamp NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`id_grupo`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='SEMPRE QUE FOR DELETAR UMA CATEGORIA, EFETUAR UM SELECT E DE';
+
+/*Data for the table `galeria_grupo` */
+
+insert  into `galeria_grupo`(`id_grupo`,`nome`,`observacao`,`data_add`) values (18,'Galeria',NULL,'2010-12-16 18:30:22'),(19,'teste',NULL,'2011-01-09 17:15:42');
+
+/*Table structure for table `galeria_tipo` */
+
+DROP TABLE IF EXISTS `galeria_tipo`;
+
+CREATE TABLE `galeria_tipo` (
+  `id_tipo` int(11) NOT NULL auto_increment,
+  `tipo` varchar(150) collate utf8_unicode_ci default NULL,
+  `codigo` text collate utf8_unicode_ci,
+  PRIMARY KEY  (`id_tipo`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+
+/*Data for the table `galeria_tipo` */
+
+insert  into `galeria_tipo`(`id_tipo`,`tipo`,`codigo`) values (1,'Imagem',NULL),(2,'Flash',NULL);
+
+
+
+
+/*Table structure for table `galeria` */
+
+DROP TABLE IF EXISTS `galeria`;
+
+CREATE TABLE `galeria` (
+  `id` int(11) NOT NULL auto_increment,
+  `users_id` int(11) NOT NULL,
+  `id_tipo` int(11) NOT NULL,
+  `id_grupo` int(11) NOT NULL,
+  `src` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `legenda` varchar(255) collate utf8_unicode_ci default NULL,
+  `link` varchar(150) collate utf8_unicode_ci default NULL,
+  `ordem` varchar(5) collate utf8_unicode_ci default NULL,
+  `data_add` timestamp NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`id`),
+  KEY `fk_galeria_galeria_tipo1` (`id_tipo`),
+  KEY `fk_galeria_galeria_grupo1` (`id_grupo`),
+  KEY `fk_galeria_users1` (`users_id`),
+  CONSTRAINT `fk_galeria_galeria_grupo1` FOREIGN KEY (`id_grupo`) REFERENCES `galeria_grupo` (`id_grupo`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `fk_galeria_galeria_tipo1` FOREIGN KEY (`id_tipo`) REFERENCES `galeria_tipo` (`id_tipo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_galeria_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+
+
+/*Table structure for table `conteudo_categoria` */
+
+DROP TABLE IF EXISTS `conteudo_categoria`;
+
+CREATE TABLE `conteudo_categoria` (
+  `id_cat` int(11) NOT NULL auto_increment,
+  `nome` varchar(150) collate utf8_unicode_ci NOT NULL,
+  `status` char(1) collate utf8_unicode_ci default '0',
+  `imagem` varchar(150) collate utf8_unicode_ci default NULL,
+  `pai_cat` int(11) default '0',
+  PRIMARY KEY  (`id_cat`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `conteudo_categoria` */
+
+insert  into `conteudo_categoria`(`id_cat`,`nome`,`status`,`imagem`,`pai_cat`) values (3,'Geral','0',NULL,0);
+
+/*Table structure for table `conteudo_tags` */
+
+DROP TABLE IF EXISTS `conteudo_tags`;
+
+CREATE TABLE `conteudo_tags` (
+  `id_tag` int(11) NOT NULL auto_increment,
+  `nome` varchar(150) collate utf8_unicode_ci NOT NULL,
+  `data` timestamp NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`id_tag`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `conteudo_tags` */
+
+/*Table structure for table `conteudo_youtube` */
+
+DROP TABLE IF EXISTS `conteudo_youtube`;
+
+CREATE TABLE `conteudo_youtube` (
+  `id` int(11) NOT NULL auto_increment COMMENT '  					',
+  `users_id` int(11) NOT NULL,
+  `titulo` varchar(45) collate utf8_unicode_ci NOT NULL,
+  `youtubeID` varchar(100) collate utf8_unicode_ci NOT NULL,
+  `url` varchar(150) collate utf8_unicode_ci default NULL,
+  `views` int(11) default NULL,
+  `data` timestamp NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`id`),
+  KEY `fk_conteudo_youtube_users1` (`users_id`),
+  CONSTRAINT `fk_conteudo_youtube_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `conteudo_youtube` */
+
+insert  into `conteudo_youtube`(`id`,`users_id`,`titulo`,`youtubeID`,`url`,`views`,`data`) values (2,20,'Alta Comunicazione - Trabalhos 3D 2010','i65BnVFDEV4','http://www.youtube.com/watch?v=i65BnVFDEV4',NULL,'2011-01-13 11:20:22');
+
+
+DROP TABLE IF EXISTS `conteudo`;
+
+CREATE TABLE `conteudo` (
+  `id` int(11) NOT NULL auto_increment,
+  `users_id` int(11) NOT NULL,
+  `id_cat` int(11) NOT NULL,
+  `id_grupo` int(11) default NULL,
+  `titulo` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `status` char(1) collate utf8_unicode_ci default '0',
+  `texto` text collate utf8_unicode_ci,
+  `imagem` varchar(120) collate utf8_unicode_ci default NULL,
+  `legenda` varchar(150) collate utf8_unicode_ci default NULL,
+  `data_add` timestamp NULL default CURRENT_TIMESTAMP,
+  `arquivo` varchar(100) collate utf8_unicode_ci default NULL COMMENT 'Possui arquivo para download? Se sim verificar se é restrito e trazer todos os downloads por arquivos .php',
+  `restrito` char(1) collate utf8_unicode_ci default '0' COMMENT 'Conteúdo para área restrita alterar o valor aqui.',
+  PRIMARY KEY  (`id`),
+  KEY `fk_conteudo_users1` (`users_id`),
+  KEY `fk_conteudo_conteudo_categoria1` (`id_cat`),
+  KEY `fk_conteudo_galeria_grupo1` (`id_grupo`),
+  CONSTRAINT `fk_conteudo_conteudo_categoria1` FOREIGN KEY (`id_cat`) REFERENCES `conteudo_categoria` (`id_cat`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_conteudo_galeria_grupo1` FOREIGN KEY (`id_grupo`) REFERENCES `galeria_grupo` (`id_grupo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_conteudo_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Para desabilitar a imagem ou o texto do conteúdo deixe o cam';
+
+/*Data for the table `conteudo` */
+
+insert  into `conteudo`(`id`,`users_id`,`id_cat`,`id_grupo`,`titulo`,`status`,`texto`,`imagem`,`legenda`,`data_add`,`arquivo`,`restrito`) values (6,20,3,NULL,'agência','1','<h1 class=\"tituloAgencia\">Criatividade com mais qualidade de vida.</h1> \r\n        <p>&nbsp;</p> \r\n        <p>A Alta Brasil possui as unidades de Ribeirão Preto e São Paulo. </p> \r\n        <p>Formados por profissionais vindos de São Paulo\r\n          e de toda a região, na Alta Ribeirão estão concentrados os núcleos de criação, produção, atendimento, planejamento e mídia.<br /> \r\n        </p> \r\n        <p>&nbsp;</p> \r\n        <p>Com essa estratégia, associada à velocidade da internet e o apoio da unidade da capital, a agência consegue atender clientes do Brasil inteiro com criatividade ampliada pela qualidade de vida.</p> ',NULL,NULL,'2010-12-16 16:08:15',NULL,'0');
