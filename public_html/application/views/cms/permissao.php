@@ -21,7 +21,7 @@
     </head>
 
     <body>
-        <?php include('includes/topoAdmin.php'); ?>
+        <?php //include('includes/topoAdmin.php'); ?>
         <div id="base_admin">
             <?php
             include('includes/topo_admin.php');
