@@ -96,16 +96,16 @@ insert  into `users_rules`(`id`,`pai`,`hidden`,`nome`,`url`,`moduloAtivado`,`dat
 (1,0,'0','Conteúdo','conteudo',0,'2010-10-07 02:29:13'),
 (2,1,'0','Páginas','conteudo/pagina',0,'2010-10-07 02:31:46'),
 (3,1,'0','Notícias','conteudo/noticia',0,'2010-10-07 02:32:20'),
-(4,0,'0','Usuários','usuario',0,'2010-10-07 03:12:42'),
-(5,4,'0','Usuários Cadastrados','usuario',0,'2010-10-07 03:12:58'),
-(6,4,'1','Alterar Status Usuário','usuario/status',0,'2010-10-08 00:49:50'),
-(7,4,'0','Cadastrar Usuário','usuario/novo',0,'2010-10-08 02:45:22'),
-(8,4,'0','Trocar minha senha','usuario/senha',0,'2010-10-09 04:23:32'),
-(9,4,'1','Alterar Permissão do Usuário','usuario/permissao',0,'2010-10-14 00:22:17'),
+(4,0,'0','Usuários','usuario',1,'2010-10-07 03:12:42'),
+(5,4,'0','Usuários Cadastrados','usuario',1,'2010-10-07 03:12:58'),
+(6,4,'1','Alterar Status Usuário','usuario/status',1,'2010-10-08 00:49:50'),
+(7,4,'0','Cadastrar Usuário','usuario/novo',1,'2010-10-08 02:45:22'),
+(8,4,'0','Trocar minha senha','usuario/senha',1,'2010-10-09 04:23:32'),
+(9,4,'1','Alterar Permissão do Usuário','usuario/permissao',1,'2010-10-14 00:22:17'),
 (10,2,'1','Páginas','conteudo/paginaEditar',0,'2010-10-07 02:31:46'),
 
 
-(12,4,'1','Editar usuários','usuarios/detalhes',0,'2010-10-26 05:42:01'),
+(12,4,'1','Editar usuários','usuarios/detalhes',1,'2010-10-26 05:42:01'),
 
 
 (15,0,'0','Video','video',0,'2010-11-15 14:31:29'),
