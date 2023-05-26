@@ -1,0 +1,218 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Poker_Calc_EnglishVersion
+{
+  public enum Suit
+  {
+    Hearts = 0,
+    Diamonds,
+    Clubs,
+    Spades
+  };
+
+  public enum Value
+  {
+    A = 1,
+    Two,
+    Three,
+    Four,
+    Five,
+    Six,
+    Seven,
+    Eight,
+    Nine,
+    T,
+    J,
+    Q,
+    K
+  };
+
+  public class Card
+  {
+    public Suit Suid { get; }
+    public Value Value { get; }
+
+
+
+    public Card(Value value, Suit suit)
+    {
+        Value = value;
+        Suid = suit;
+    }
+
+
+
+    public override string ToString()
+    {
+        //return base.ToString()+ " Value: " + Value + " Suit: " + Suid;
+
+        return " Value: " + Value + " Suit: " + Suid;
+    }
+ }
+Deck :
+
+public class Deck
+{
+
+    private List<Card> _deck;
+    public int _deckDimension { get; }
+
+    public Deck()
+    {
+        this._deckDimension = 52;
+        this._deck = new List<Card>(_deckDimension);
+
+        foreach (Suit s in Enum.GetValues(typeof(Suit)))
+        {
+            foreach (Value v in Enum.GetValues(typeof(Value)))
+            {
+                Card c = new Card(v, s);
+                _deck.Add(c);
+            }
+        }
+    }
+
+
+    public Card GetCard(int i)
+    {
+        if (!(i >= 0 && i < _deckDimension))
+        {
+            return null;
+        }
+        return _deck[i];
+    }
+
+    public Card RemoveCard(int pos)
+    {
+        if (!(pos >= 0 && pos < _deckDimension))
+        {
+            return null;
+        }
+
+        Card cd_return = GetCard(pos);
+        _deck.RemoveAt(pos);
+
+        return cd_return;
+    }
+
+
+    public void SwapCard(int a, int b)
+    {
+        Card cd = GetCard(a);
+        _deck[a] = GetCard(b);
+        _deck[b] = cd;
+
+    }
+Dealer :
+
+public class Dealer
+{
+    private Deck _deck;
+
+    public Dealer(Deck deck)
+    {
+        this._deck = deck;
+    }
+
+
+    public bool Shuffle()
+    {
+        var rnd = new Random();
+        int i = 0;
+
+        int first;
+        int second;
+
+        while (i < 10000)
+        {
+            first = rnd.Next(0, _deck._deckDimension - 1);
+            do
+            {
+                second = rnd.Next(0, _deck._deckDimension - 1);
+            }
+            while (first == second);
+
+            _deck.SwapCard(first, second);
+            i++;
+        }
+
+        return true;
+    }
+
+
+    public Card DealCard()
+    {
+        Random rnd = new Random();
+        int first;
+        first = rnd.Next(0, _deck._deckDimension - 1);
+
+        return _deck.RemoveCard(first);
+
+    }
+Player
+
+public class Player
+{
+    private float _stack { get; }
+    private List<Card> _hand { get; }
+
+    public Player()
+    {
+        _hand = new List<Card>(2);
+    }
+
+
+    public void ReceiveCard(Card c)
+    {
+        _hand.Add(c);
+    }
+
+
+    public List<Card> GetHand()
+    {
+        return _hand;
+    }
+Button1 and some listbox for testing and see result
+
+    private void Button1_Click(object sender, EventArgs e)
+    {
+        Deck deck = new Deck();
+
+        deck.PrintDeck(listBox1);
+
+        Dealer dl = new Dealer(deck);
+
+        dl.Shuffle();
+
+        deck.PrintDeck(listBox2);
+
+        label1.Text = deck._deckDimension.ToString();
+
+        dl.OrderDeck();
+
+        deck.PrintDeck(listBox3);
+
+        Player p1 = new Player();
+
+        p1.ReceiveCard(dl.DealCard());
+        //thread.sleep use for switch context and random generate not a two consecutive card
+        System.Threading.Thread.Sleep(50);
+        p1.ReceiveCard(dl.DealCard());
+
+        p1.PrintHand(listBox4);
+
+
+    }  public Card GetCard(int i)
+{
+    if (i < 0 || i >= _deckDimension)
+    {
+        return null;
+    }
+    return _deck[i];
+}
+        
+      
